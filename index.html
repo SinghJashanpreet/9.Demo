@@ -1,247 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/bootstrap.css" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
     <title>Register Patient</title>
     <style>
-      * {
-        padding: 1%;
-      }
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        line-height: 5vh;
-        /* width: 30%; */
-      }
-      .card-header {
-        margin: -15px;
-      }
+        * {
+            padding: 1%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            line-height: 5vh;
+            /* width: 30%; */
+        }
+
+        .card-header {
+            margin: -15px;
+        }
     </style>
     <style>
-      body {
-        padding: 1px;
+        body {
+            padding: 1px;
 
-        background-image: url("1.jpg");
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-      }
-      #Main {
-        background-color: white;
-      }
-      #header {
-        color: white;
-      }
+            /* background-image:url("1.jpg"); */
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #Main {
+
+            background-color: white;
+        }
+
+        #header {
+            color: white;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
-    <div
-      class="text-center bg-dark"
-      style="font-weight: bold; font-size: 20px"
-      id="header"
-    >
-      Welcome Red Cross Hospital
+<body>
+    <div class="text-center bg-dark" style="font-weight: bold; font-size: 20px" id="header">
+        Welcome Red Cross Hospital
     </div>
-    <hr />
+    <hr>
     <div class="container shadow w-45" id="Main">
-      <div class="card-header text-center bg-dark text-white">
-        Register a new Patient
-      </div>
-      <form action="submitPatient.php" method="post">
-        <label for="name" style="margin-top: 30px">Name: </label>
-        <input type="text" id="name" name="Name" /><br />
-        <label for="YOB" style="margin-top: 30px">Enter Year of Birth: </label>
-        <input type="number" id="YOB" name="YOB" max="2015" min="1930" step="1" /><br />
-    
-        <label for="district">Select the district</label>
-
-        <select
-          name="District"
-          id="district"
-          onchange="districtHiddenContent()"
-          required
-        >
-          <option disabled selected hidden>Select</option>
-          <option value="1">Patiala</option>
-          <option value="0">Other</option>
-        </select>
-        <br />
-
-        <div id="hiddenContent"></div>
-
-        <label for="drug">Major Drug Dependencies: </label>
-        <input type="text" id="drug" name="Depend" /><br />
-        <center>
-          <button type="submit" class="btn btn-dark w-25 my-4">Register</button>
-        </center>
-        <div class="card-footer text-center">
-          <smaller>&copy:SinghJS </smaller>
+        <div class="card-header text-center bg-dark text-white">
+            Register a new Patient
         </div>
-      </form>
-    </div>
-  
-  
-  <script>
-      console.log("jashan");
-      function districtHiddenContent() {
-        document
-          .getElementById("district")
-          .addEventListener("click", (event) => {
-            var value = document.getElementById("district").value;
-            var hiddenContent = document.getElementById("hiddenContent");
-            if (value == 0) {
-              console.log("value = 0");
-              hiddenContent.innerHTML = " ";
-            } else {
-              console.log("value = 1");
-              hiddenContent.innerHTML = `      <label for="location">Location:</label>
-                <input type="radio" name="location" name="0" required><label>Rural</label>
-                <input type="radio" name="location" name="1" required><label>Urban</label><br>
-              
-            <label for="subdivision">Select the subdivision</label>
-            <select name="Sub_division" id="subdivision"  onchange="block()" required>
+
+        <form action="" method="post" autocomplete="off">
+            <label for="name" style="margin-top: 30px;">Name: </label>
+            <input type="text" id="name" name="name" required><br>
+            <label for="yob">Enter Year of Birth: </label>
+            <input type="number" min="1930" max="2015" step="1" required><br>
+            <label for="district">Select the district</label>
+            <select name="district" id="district" onclick="remove()" required>
                 <option disabled selected hidden>Select</option>
-                <option value="Patiala">Patiala</option>
-                <option value="Nabha">Nabha</option>
-                <option value="Rajpura">Rajpura</option>
-                <option value="Samana">Samana</option>
-                <option value="Patran">Patran</option>
-                <option value="Dudhan Sadhan">Dudhan Sadhan</option>
+                <option value="1">Patiala</option>
+                <option value="0">Other</option>
             </select><br>
-            <span id="block" value="block"></span><br>
-     
 
-            <label for="gali">Gali/Mohalla: </label>
-            <input type="text" id="gali" value="Gali"><br>
-        `;
-            }
-          });
-      }
+            <span id="patiala">
 
-      function block() {
-        document
-          .getElementById("subdivision")
-          .addEventListener("click", (event) => {
-            var sub = document.getElementById("subdivision").value;
-            var block = document.getElementById("block");
-            var ele = document.getElementsByName("location");
-            var loc = 2;
-            for (var i = 0; i < ele.length; i++) {
-              if (ele[i].checked) {
-                loc = ele[i].value;
-                break;
-              }
-            }
+            </span>
+            <label for="drug">Major Drug Dependencies: </label>
+            <input type="text" id="drug" name="drug" required><br>
+            <center>
+                <button type="submit" class="btn btn-dark w-25 my-4"> Register </button>
+            </center>
+        </form>
+    </div>
 
-            if (loc == 1) {
-              if (sub == 1)
-                block.innerHTML = `<label for="city">City: </label>
+    <script>
+        function remove() {
+            document.getElementById("district").addEventListener('click', (event) => {
+                var dis = document.getElementById("district").value;
+                var patiala = document.getElementById("patiala");
+
+                if (dis == 0) {
+                    patiala.innerHTML = ``;
+                }
+
+                else
+                    patiala.innerHTML = `   <label for="location">Location:</label>
+                <input type="radio" name="location" value="0" required><label>Rural</label>
+                <input type="radio" name="location" value="1" required><label>Urban</label><br>
+                <label for="subdivision">Select the subdivision</label>
+                <select name="subdivision" id="subdivision" onchange="block()" required>
+                    <option disabled selected hidden>Select</option>
+                    <option value="1">Patiala</option>
+                    <option value="2">Nabha</option>
+                    <option value="3">Rajpura</option>
+                    <option value="4">Samana</option>
+                    <option value="5">Patran</option>
+                    <option value="6">Dudhan Sadhan</option>
+                </select><br>
+                <span id="block"></span><br>
+                <label for="gali">Gali/Mohalla: </label>
+                <input type="text" id="gali" name="gali" required><br>`;
+
+            });
+        };
+
+        function block() {
+            document.getElementById("subdivision").addEventListener('click', (event) => {
+                var sub = document.getElementById("subdivision").value;
+                var block = document.getElementById("block");
+                var ele = document.getElementsByName("location");
+                var loc = 2;
+                for (var i = 0; i < ele.length; i++) {
+                    if (ele[i].checked) {
+                        loc = ele[i].value;
+                        break;
+                    }
+                }
+
+                if (loc == 1) {
+                    if (sub == 1)
+                        block.innerHTML = `<label for="city">City: </label>
                     <select name="city" id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
-                    <option value="Patiala">Patiala</option>
-                    <option value="Sanour">Sanour</option>
+                    <option>Patiala</option>
+                    <option>Sanour</option>
                     </select>
-                    `;
-              else if (sub == 2)
-                block.innerHTML = `<label for="city">City: </label>
+                    `
+
+                    else if (sub == 2)
+                        block.innerHTML = `<label for="city">City: </label>
                     <select id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
-                    <option value="Nabha">Nabha</option>
-                    <option value="Bhadson">Bhadson</option>
+                    <option>Nabha</option>
+                    <option>Bhadson</option>
                     </select>
-                    `;
-              else if (sub == 3)
-                block.innerHTML = `<label for="city">City: </label>
+                    `
+
+                    else if (sub == 3)
+                        block.innerHTML = `<label for="city">City: </label>
                     <select id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
-                    <option value="Rajpura">Rajpura</option>
-                    <option value="Ghanour">Ghanour</option>
+                    <option>Rajpura</option>
+                    <option>Ghanour</option>
                     </select>
-                    `;
-              else if (sub == 4)
-                block.innerHTML = `<label for="city">City: </label>
+                    `
+
+                    else if (sub == 4)
+                        block.innerHTML = `<label for="city">City: </label>
                     <select id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
-                    <option value="">Samana</option>
+                    <option>Samana</option>
                     </select>
-                    `;
-              else if (sub == 5)
-                block.innerHTML = `<label for="city">City: </label>
+                    `
+
+                    else if (sub == 5)
+                        block.innerHTML = `<label for="city">City: </label>
                     <select id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
-                    <option value="Patran">Patran</option>
-                    <option value="Ghagga">Ghagga</option>
+                    <option>Patran</option>
+                    <option>Ghagga</option>
                     </select>
-                    `;
-              else if (sub == 6)
-                block.innerHTML = `<label for="city">City: </label>
+                    `
+
+                    else if (sub == 6)
+                        block.innerHTML = `<label for="city">City: </label>
                     <select id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
-                    <option value="Devigarh">Devigarh</option>
+                    <option>Devigarh</option>
                     </select>
-                    `;
-            } else {
-              if (sub == 1)
-                block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    `
+                }
+
+                else {
+                    if (sub == 1)
+                        block.innerHTML = `<label for="block">Block/Tehsil: </label>
                     <select id="block1" name="block1" onclick="cities()" required>
                     <option selected disabled hidden>Select</option>
-                    <option value="Patiala">Patiala</option>
-                    <option value="Patiala Rural">Patiala Rural</option>
-                    <option value="Sanour">Sanour</option>
-                    <option value="Bhunerheri">Bhunerheri</option>
+                    <option value="1">Patiala</option>
+                    <option value="2">Patiala Rural</option>
+                    <option value="3">Sanour</option>
+                    <option value="4">Bhunerheri</option>
                     </select>
                     <div id="vill"></div>
-                    `;
-              else if (sub == 2)
-                block.innerHTML = `<label for="block">Block/Tehsil: </label>
-                    <select id="block" name="block" onclick="cities()" required>
-                    <option selected disabled hidden>Select</option>
-                    <option value="Nabha">Nabha</option>
-                    </select>
-                    <div id="vill"></div>`;
-              else if (sub == 3)
-                block.innerHTML = `<label for="block">Block/Tehsil: </label>
-                    <select id="block" name="block" onclick="cities()" required>
-                    <option selected disabled hidden>Select</option>
-                    <option value="Rajpura">Rajpura</option>
-                    <option value="Ghanour">Ghanour</option>
-                    <option value="Shambhu Kalan">Shambhu Kalan</option>
-                    </select>
-                    <div id="vill"></div>`;
-              else if (sub == 4)
-                block.innerHTML = `<label for="block">Block/Tehsil: </label>
-                    <select id="block" name="block" onclick="cities()" required>
-                    <option selected disabled hidden>Select</option>
-                    <option value="Samana">Samana</option>
-                    </select>
-                    <div id="vill"></div>`;
-              else if (sub == 5)
-                block.innerHTML = `<label for="block">Block/Tehsil: </label>
-                    <select id="block" name="block" onclick="cities()" required>
-                    <option selected disabled hidden>Select</option>
-                    <option value="Patran">Patran</option>
-                    </select>
-                    <div id="vill"></div>`;
-              else if (sub == 6) block.innerHTML = ``;
-            }
-          });
-      }
+                    `
 
-      function cities() {
-        document.getElementById("block1").addEventListener("click", (event) => {
-          var block1 = document.getElementById("block1").value;
-          var vill = document.getElementById("vill");
-          console.log(block1);
+                    else if (sub == 2)
+                        block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block" name="block" onclick="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="5">Nabha</option>
+                    </select>
+                    <div id="vill"></div>`
 
-          if (block1 == 1) {
-            vill.innerHTML = `<label for="village">Village: </label>
+                    else if (sub == 3)
+                        block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block" name="block" onclick="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="6">Rajpura</option>
+                    <option value="7">Ghanour</option>
+                    <option value="8">Shambhu Kalan</option>
+                    </select>
+                    <div id="vill"></div>`
+
+                    else if (sub == 4)
+                        block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block" name="block" onclick="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="9">Samana</option>
+                    </select>
+                    <div id="vill"></div>`
+
+                    else if (sub == 5)
+                        block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block" name="block" onclick="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="10">Patran</option>
+                    </select>
+                    <div id="vill"></div>`
+
+                    else if (sub == 6)
+                        block.innerHTML = ``
+                }
+            })
+        }
+
+        function cities() {
+            document.getElementById("block1").addEventListener('click', (event) => {
+                var block1 = document.getElementById("block1").value;
+                var vill = document.getElementById("vill");
+                console.log(block1);
+
+                if (block1 == 1) {
+                    vill.innerHTML = `<label for="village">Village: </label>
                     <select id="village" name="village" required>
                   <option selected disabled hidden>Please select</option>
                   <option>Mavi Sappan</option>
@@ -330,9 +328,11 @@
                   <option>Ramgarh</option>
                   <option>Dudhad</option>
                   </select>
-                    `;
-          } else if (block1 == 2) {
-            vill.innerHTML = `<label for="village">Village: </label>
+                    `
+                }
+
+                else if (block1 == 2) {
+                    vill.innerHTML = `<label for="village">Village: </label>
                     <select id="village" name="village" required>
                         <option selected hidden disabled>Please Select</option>
                         <option>Allowal</option>
@@ -397,10 +397,11 @@
                         <option>Karamgarh</option>
                         <option>Vikas Nagar</option>
 
-                    </select>`;
-          } else if (block1 == 4) {
-            console.log(block1);
-            vill.innerHTML = `
+                    </select>`}
+
+                else if (block1 == 4) {
+                    console.log(block1);
+                    vill.innerHTML = `
                     <label for="village">Village: </label>
                     <select id="village" name="village" required>
                         <option selected hidden disabled>Please Select</option>
@@ -549,9 +550,11 @@
                         <option>Ultapur Jwalapur</option>
                         <option>Upali</option>
                     </select>
-                    `;
-          } else if (block1 == 3) {
-            vill.innerHTML = `<label for="village">Village: </label>
+                    `
+                }
+
+                else if (block1 == 3) {
+                    vill.innerHTML = `<label for="village">Village: </label>
                     <select id="village" name="village" required>
                                <option selected hidden disabled>Please Select</option>
                                 <option>Rathian</option>
@@ -653,10 +656,261 @@
                                 <option>Vidya Nagar</option>
                                 <option>Dalanpur</option>
                                 <option>Sahibnagar Theri</option>
-                        </select>`;
-          }
-        });
-      }
+                        </select>`}
+                else if (block1 == 5) {
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                               <option selected hidden disabled>Please Select</option>
+                               <option value="">Abhepur</option>
+                               <option value="">Achal</option>
+                               <option value="">Ageta</option>
+                               <option value="">Ageti</option>
+                               <option value="">Agol</option>
+                               <option value="">Akalgarh</option>
+                               <option value="">Allohra Kalan</option>
+                               <option value="">Allohra Khurd</option>
+                               <option value="">Alipur</option>
+                               <option value="">Babarpur</option>
+                               <option value="">Bajidri</option>
+                               <option value="">Banera Kalan</option>
+                               <option value="">Banera Khurd</option>
+                               <option value="">Bureh</option>
+                               <option value="">Behbalpur</option>
+                               <option value="">Bhadi Panecha</option>
+                               <option value="">Bhilowal</option>
+                               <option value="">Bhozo Majri</option>
+                               <option value="">Binaheri</option>
+                               <option value="">Birdhno</option>
+                               <option value="">Bishangarh</option>
+                               <option value="">Bauran Kalan</option>
+                               <option value="">Bauran Khurd</option>
+                               <option value="">Buga Khurd</option>
+                               <option value="">Bhode</option>
+                               <option value="">Biradwal</option>
+                               <option value="">Bishanpura</option>
+                               <option value="">Chehl</option>
+                               <option value="">Chhaju Bhatt</option>
+                               <option value="">Channanthuvalian</option>
+                               <option value="">Chaswal</option>
+                               <option value="">Chatthe</option>
+                               <option value="">Chaudhary Majra</option>
+                               <option value="">Dakoda</option>
+                               <option value="">Dandrala Dhadsa</option>
+                               <option value="">Dargapur</option>
+                               <option value="">Dhanori Ga</option>
+                               <option value="">Dharoki</option>
+                               <option value="">Dhingi</option>
+                               <option value="">Dittupur Jattan</option>
+                               <option value="">Diwangarh</option>
+                               <option value="">Doda</option>
+                               <option value="">Dulladi</option>
+                               <option value="">Faizgarh</option>
+                               <option value="">Faridpur</option>
+                               <option value="">Fatehpur</option>
+                               <option value="">Galwatti</option>
+                               <option value="">Ghaniwal</option>
+                               <option value="">Ghanurki</option>
+                               <option value="">Ghunder</option>
+                               <option value="">Gobindpura</option>
+                               <option value="">Gadaia</option>
+                               <option value="">Gujarheri</option>
+                               <option value="">Multiplier</option>
+                               <option value="">Gurditpura</option>
+                               <option value="">Gobindgarh Chhanan</option>
+                               <option value="">Hakimpura</option>
+                               <option value="">Halla</option>
+                               <option value="">Halotali</option>
+                               <option value="">Harigarh</option>
+                               <option value="">Hasanpura</option>
+                               <option value="">Himantapura</option>
+                               <option value="">Zaso Majra</option>
+                               <option value="">Jatiwal</option>
+                               <option value="">Jhambali Khaas</option>
+                               <option value="">Jhambali Sahni</option>
+                               <option value="">Jindalpur</option>
+                               <option value="">Kakrala</option>
+                               <option value="">Kalhe Majra</option>
+                               <option value="">Kalihana</option>
+                               <option value="">Kallar Majri</option>
+                               <option value="">Kalsana</option>
+                               <option value="">Kameli</option>
+                               <option value="">Kansuha Khurd</option>
+                               <option value="">Kartar Colony</option>
+                               <option value="">Kaul</option>
+                               <option value="">Khanora</option>
+                               <option value="">Khatra Colony</option>
+                               <option value="">Kheri Jatta</option>
+                               <option value="">Khijarpur</option>
+                               <option value="">Kot Kalan</option>
+                               <option value="">Kot Khurd</option>
+                               <option value="">Kulara</option>
+                               <option value="">Khokh</option>
+                               <option value="">Kotli</option>
+                               <option value="">Lopeh</option>
+                               <option value="">Ladhaheri</option>
+                               <option value="">Lohar Majra</option>
+                               <option value="">Malko</option>
+                               <option value="">Mallewal</option>
+                               <option value="">Mallewal Patti</option>
+                               <option value="">Magewal</option>
+                               <option value="">Mansurpur</option>
+                               <option value="">Matorda</option>
+                               <option value="">Megh Colony</option>
+                               <option value="">Mehs</option>
+                               <option value="">Mohalgawara</option>
+                               <option value="">Mungo</option>
+                               <option value="">Nanowal</option>
+                               <option value="">Naraingarh</option>
+                               <option value="">Narmana</option>
+                               <option value="">Nohra</option>
+                               <option value="">Paharpur</option>
+                               <option value="">Palian Kalan</option>
+                               <option value="">Palian Khurd</option>
+                               <option value="">Remal Majri</option>
+                               <option value="">Rasle</option>
+                               <option value="">Rajpura</option>
+                               <option value="">Ramgarh Bora</option>
+                               <option value="">Ramgarh Bhadson</option>
+                               <option value="">Rampursaiwal</option>
+                               <option value="">Ranjitgarh</option>
+                               <option value="">Ranno</option>
+                               <option value="">Rajgarh</option>
+                               <option value="">Sandhnoli</option>
+                               <option value="">Sadhoheri</option>
+                               <option value="">Saholi</option>
+                               <option value="">Sakoha</option>
+                               <option value="">Sakrali (Nanoki)</option>
+                               <option value="">Saluwal</option>
+                               <option value="">Samaspur</option>
+                               <option value="">Sangatpura</option>
+                               <option value="">Saraindas Kalon</option>
+                               <option value="">Sauja</option>
+                               <option value="">Shahpur</option>
+                               <option value="">Shivgarh</option>
+                               <option value="">Sri Guru Tegbahadur Nagar</option>
+                               <option value="">Shri Nagar</option>
+                               <option value="">Sudhewal</option>
+                               <option value="">Sukhewal</option>
+                               <option value="">Surajpur</option>
+                               <option value="">Tarkhedi Kalan</option>
+                               <option value="">Tarkhedi Khurd</option>
+                               <option value="">Thuha Patti</option>
+                               <option value="">Thuhi</option>
+                               <option value="">Todarwal</option>
+                               <option value="">Tohra</option>
+                               <option value="">Tunga</option>
+                               <option value="">Udha</option>
+                               <option value="">Upla</option>
+                               <option value="">Wajidpur</option>
+                               </select>`}
+
+                else if (block1 == 6) {
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                               <option selected hidden disabled>Please Select</option>
+                               <option value="">Ugana</option>
+                               <option value="">Ugani</option>
+                               <option value="">Uksi Sainia</option>
+                               <option value="">Uksi Jatta</option>
+                               <option value="">Uchi Khera</option>
+                               <option value="">Upalheri</option>
+                               <option value="">Upalheri Khurd</option>
+                               <option value="">Urdan</option>
+                               <option value="">Urna</option>
+                               <option value="">Azizpur</option>
+                               <option value="">Akbarpur</option>
+                               <option value="">Aluna</option>
+                               <option value="">Sadharor</option>
+                               <option value="">Samdu</option>
+                               <option value="">Sooral Kalan</option>
+                               <option value="">Sural Khurd </option>
+                               <option value="">Hadietpura</option>
+                               <option value="">Hareao</option>
+                               <option value="">Hulka</option>
+                               <option value="">Kalo Majra</option>
+                               <option value="">Kaloli</option>
+                               <option value="">Karala</option>
+                               <option value="">Kotla</option>
+                               <option value="">Kurali</option>
+                               <option value="">Khalor</option>
+                               <option value="">Khaspur</option>
+                               <option value="">Khanpur Bangar</option>
+                               <option value="">Khanpur Khadar</option>
+                               <option value="">Kharajpur</option>
+                               <option value="">Kharola</option>
+                               <option value="">Khera Guju</option>
+                               <option value="">Khijargarh</option>
+                               <option value="">Gaddo Majra</option>
+                               <option value="">Chak Khurd</option>
+                               <option value="">Gurditpura</option>
+                               <option value="">Chak Kalan</option>
+                               <option value="">Chandua Khurd</option>
+                               <option value="">Chandu Majra</option>
+                               <option value="">Changera</option>
+                               <option value="">Chhadbar</option>
+                               <option value="">Jalalpur</option>
+                               <option value="">Jandoli</option>
+                               <option value="">Jangpura</option>
+                               <option value="">Jasla</option>
+                               <option value="">Jansui</option>
+                               <option value="">Jasli</option>
+                               <option value="">Jhajho</option>
+                               <option value="">Tasoli</option>
+                               <option value="">Dabali Kalan</option>
+                               <option value="">Dabali Khurd</option>
+                               <option value="">Damanheri</option>
+                               <option value="">Devi Nagar (A)</option>
+                               <option value="">Devi Nagar(R)</option>
+                               <option value="">Dharamgarh(R)</option>
+                               <option value="">Dharamgarh (B)</option>
+                               <option value="">Dhuma</option>
+                               <option value="">Naina</option>
+                               <option value="">Nalas Kalan</option>
+                               <option value="">Nalas Khurd</option>
+                               <option value="">Nandyali</option>
+                               <option value="">Naraingarh Jhungia</option>
+                               <option value="">Neelpur</option>
+                               <option value="">Pilkhani</option>
+                               <option value="">Faridpur</option>
+                               <option value="">Faridpur Gujjara</option>
+                               <option value="">Fatehpurgarhi</option>
+                               <option value="">Budhanpur</option>
+                               <option value="">Boota Singh Wala</option>
+                               <option value="">Bakshiwala</option>
+                               <option value="">Bal Majra</option>
+                               <option value="">Balsua</option>
+                               <option value="">Basantpura</option>
+                               <option value="">Bhapal</option>
+                               <option value="">Bhateri</option>
+                               <option value="">Bhateeras</option>
+                               <option value="">Mirzapur</option>
+                               <option value="">Mamoli</option>
+                               <option value="">Manakpur</option>
+                               <option value="">Manoli Surat</option>
+                               <option value="">Mathiara</option>
+                               <option value="">Ram Nagar alias Soti</option>
+                               <option value="">Rampur Kalan</option>
+                               <option value="">Ram Nagar </option>
+                               <option value="">Rampur Khurd</option>
+                               <option value="">Rangia</option>
+                               <option value="">Lehla</option>
+                               <option value="">Wazirabad</option>
+                               <option value="">Satnam Nagar</option>
+                               <option value="">Kuldeep Nagar</option>
+                               <option value="">Peer Nagar</option>
+                               <option value="">Sadharor Majri</option>
+                               <option value="">Baazigar Basti Sarai Bajara</option>
+                               <option value="">Basti Baksiala</option>
+                               <option value="">Guru Angad Dev Colony</option>
+                               <option value="">Kaloli Jattan</option>
+                               <option value="">Saamdu Camp</option>
+                            </select>`
+                }
+
+            })
+        }
+
     </script>
-  </body>
+</body>
+
 </html>
