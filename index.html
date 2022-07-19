@@ -1,35 +1,662 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <title>Register Patient</title>
+    <style>
+      * {
+        padding: 1%;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        line-height: 5vh;
+        /* width: 30%; */
+      }
+      .card-header {
+        margin: -15px;
+      }
+    </style>
+    <style>
+      body {
+        padding: 1px;
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id"
-        content="81202661939-lp8a6519r96du5arj4g8pcudhpea0qmi.apps.googleusercontent.com">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Sign-In With Google</title>
-</head>
+        background-image: url("1.jpg");
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+      #Main {
+        background-color: white;
+      }
+      #header {
+        color: white;
+      }
+    </style>
+  </head>
 
-<body>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <body>
+    <div
+      class="text-center bg-dark"
+      style="font-weight: bold; font-size: 20px"
+      id="header"
+    >
+      Welcome Red Cross Hospital
+    </div>
+    <hr />
+    <div class="container shadow w-45" id="Main">
+      <div class="card-header text-center bg-dark text-white">
+        Register a new Patient
+      </div>
+      <form action="submitPatient.php" method="post">
+        <label for="name" style="margin-top: 30px">Name: </label>
+        <input type="text" id="name" name="Name" /><br />
+        <label for="YOB" style="margin-top: 30px">Enter Year of Birth: </label>
+        <input type="number" id="YOB" name="YOB" max="2015" min="1930" step="1" /><br />
+    
+        <label for="district">Select the district</label>
 
-    <div class="g-signin2" data-onsuccess="onSignIn" data-scope="https://www.googleapis.com/auth/plus.login"
-        data-accesstype="offline" data-redirecturi="https://singhjashanpreet.github.io/1.RangeRover/"></div>
-    <script>
-        function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail());
-        }
+        <select
+          name="District"
+          id="district"
+          onchange="districtHiddenContent()"
+          required
+        >
+          <option disabled selected hidden>Select</option>
+          <option value="1">Patiala</option>
+          <option value="0">Other</option>
+        </select>
+        <br />
+
+        <div id="hiddenContent"></div>
+
+        <label for="drug">Major Drug Dependencies: </label>
+        <input type="text" id="drug" name="Depend" /><br />
+        <center>
+          <button type="submit" class="btn btn-dark w-25 my-4">Register</button>
+        </center>
+        <div class="card-footer text-center">
+          <smaller>&copy:SinghJS </smaller>
+        </div>
+      </form>
+    </div>
+  
+  
+  <script>
+      console.log("jashan");
+      function districtHiddenContent() {
+        document
+          .getElementById("district")
+          .addEventListener("click", (event) => {
+            var value = document.getElementById("district").value;
+            var hiddenContent = document.getElementById("hiddenContent");
+            if (value == 0) {
+              console.log("value = 0");
+              hiddenContent.innerHTML = " ";
+            } else {
+              console.log("value = 1");
+              hiddenContent.innerHTML = `      <label for="location">Location:</label>
+                <input type="radio" name="location" name="0" required><label>Rural</label>
+                <input type="radio" name="location" name="1" required><label>Urban</label><br>
+              
+            <label for="subdivision">Select the subdivision</label>
+            <select name="Sub_division" id="subdivision"  onchange="block()" required>
+                <option disabled selected hidden>Select</option>
+                <option value="Patiala">Patiala</option>
+                <option value="Nabha">Nabha</option>
+                <option value="Rajpura">Rajpura</option>
+                <option value="Samana">Samana</option>
+                <option value="Patran">Patran</option>
+                <option value="Dudhan Sadhan">Dudhan Sadhan</option>
+            </select><br>
+            <span id="block" value="block"></span><br>
+     
+
+            <label for="gali">Gali/Mohalla: </label>
+            <input type="text" id="gali" value="Gali"><br>
+        `;
+            }
+          });
+      }
+
+      function block() {
+        document
+          .getElementById("subdivision")
+          .addEventListener("click", (event) => {
+            var sub = document.getElementById("subdivision").value;
+            var block = document.getElementById("block");
+            var ele = document.getElementsByName("location");
+            var loc = 2;
+            for (var i = 0; i < ele.length; i++) {
+              if (ele[i].checked) {
+                loc = ele[i].value;
+                break;
+              }
+            }
+
+            if (loc == 1) {
+              if (sub == 1)
+                block.innerHTML = `<label for="city">City: </label>
+                    <select name="city" id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Patiala">Patiala</option>
+                    <option value="Sanour">Sanour</option>
+                    </select>
+                    `;
+              else if (sub == 2)
+                block.innerHTML = `<label for="city">City: </label>
+                    <select id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Nabha">Nabha</option>
+                    <option value="Bhadson">Bhadson</option>
+                    </select>
+                    `;
+              else if (sub == 3)
+                block.innerHTML = `<label for="city">City: </label>
+                    <select id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Rajpura">Rajpura</option>
+                    <option value="Ghanour">Ghanour</option>
+                    </select>
+                    `;
+              else if (sub == 4)
+                block.innerHTML = `<label for="city">City: </label>
+                    <select id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="">Samana</option>
+                    </select>
+                    `;
+              else if (sub == 5)
+                block.innerHTML = `<label for="city">City: </label>
+                    <select id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Patran">Patran</option>
+                    <option value="Ghagga">Ghagga</option>
+                    </select>
+                    `;
+              else if (sub == 6)
+                block.innerHTML = `<label for="city">City: </label>
+                    <select id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Devigarh">Devigarh</option>
+                    </select>
+                    `;
+            } else {
+              if (sub == 1)
+                block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block1" name="block1" onclick="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Patiala">Patiala</option>
+                    <option value="Patiala Rural">Patiala Rural</option>
+                    <option value="Sanour">Sanour</option>
+                    <option value="Bhunerheri">Bhunerheri</option>
+                    </select>
+                    <div id="vill"></div>
+                    `;
+              else if (sub == 2)
+                block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block" name="block" onclick="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Nabha">Nabha</option>
+                    </select>
+                    <div id="vill"></div>`;
+              else if (sub == 3)
+                block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block" name="block" onclick="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Rajpura">Rajpura</option>
+                    <option value="Ghanour">Ghanour</option>
+                    <option value="Shambhu Kalan">Shambhu Kalan</option>
+                    </select>
+                    <div id="vill"></div>`;
+              else if (sub == 4)
+                block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block" name="block" onclick="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Samana">Samana</option>
+                    </select>
+                    <div id="vill"></div>`;
+              else if (sub == 5)
+                block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block" name="block" onclick="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Patran">Patran</option>
+                    </select>
+                    <div id="vill"></div>`;
+              else if (sub == 6) block.innerHTML = ``;
+            }
+          });
+      }
+
+      function cities() {
+        document.getElementById("block1").addEventListener("click", (event) => {
+          var block1 = document.getElementById("block1").value;
+          var vill = document.getElementById("vill");
+          console.log(block1);
+
+          if (block1 == 1) {
+            vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                  <option selected disabled hidden>Please select</option>
+                  <option>Mavi Sappan</option>
+                  <option>Langaroi</option>
+                  <option>Barsat</option>
+                  <option>Bhanara</option>
+                  <option>Bathoi Kalan</option>
+                  <option>Sher Majra</option>
+                  <option>Drola</option>
+                  <option>Hari Nagarkhedki</option>
+                  <option>Kheri Mania</option>
+                  <option>Bibipur</option>
+                  <option>Balipur</option>
+                  <option>Sassa Gujaran</option>
+                  <option>Amamnagar</option>
+                  <option>Dharmaheri</option>
+                  <option>Randhawa</option>
+                  <option>Sadarpur</option>
+                  <option>Karhali</option>
+                  <option>Ramnagar Bakshiwala</option>
+                  <option>Lalochchi</option>
+                  <option>Sultanpur</option>
+                  <option>Kheri Mallan</option>
+                  <option>Kuka</option>
+                  <option>Chuharpur Kalan</option>
+                  <option>Dadhera</option>
+                  <option>Rakhra</option>
+                  <option>Kalyan</option>
+                  <option>Fatehpur</option>
+                  <option>Dharamkot</option>
+                  <option>Chuharpur Jattan</option>
+                  <option>Men</option>
+                  <option>Beed Kheri Gujjaran</option>
+                  <option>Khusropur</option>
+                  <option>New Kheri</option>
+                  <option>Kheri Gujjara</option>
+                  <option>Aase Majra</option>
+                  <option>Kheri Muslamania</option>
+                  <option>Rajgarh</option>
+                  <option>Malo Majra</option>
+                  <option>Tarora Khurd</option>
+                  <option>Mund Khera</option>
+                  <option>Sessarval</option>
+                  <option>Rauni</option>
+                  <option>Bhedpura</option>
+                  <option>Wajidpur</option>
+                  <option>Mehmadpur</option>
+                  <option>Dilawarpur</option>
+                  <option>Paharpur</option>
+                  <option>Chuharpur Marasia</option>
+                  <option>Dhakdaba</option>
+                  <option>Kakrala</option>
+                  <option>Saini Majra</option>
+                  <option>Tarai</option>
+                  <option>Maddo Majra</option></option>
+                  <option>Sawajpur Old</option>
+                  <option>Sawajpur New</option>
+                  <option>Bhanari</option>
+                  <option>Gajumjara</option>
+                  <option>Dashmesh Nagar</option>
+                  <option>Bathoi Khurd</option>
+                  <option>Rivas Brahmana</option>
+                  <option>Sasi Brahmana</option>
+                  <option>Dakala</option>
+                  <option>Channa Khuhanti</option>
+                  <option>Khera Jatta</option>
+                  <option>Tulewal</option>
+                  <option>Kalar Bhaini</option>
+                  <option>Droli</option>
+                  <option>Kheri Barna</option>
+                  <option>Ranbirpura</option>
+                  <option>Asahib Pura</option>
+                  <option>Indra Pura</option>
+                  <option>Purbia Colony</option>
+                  <option>Kheri Gowria</option>
+                  <option>Jahalan</option>
+                  <option>Bishanpur Channa</option>
+                  <option>Dhamomjra</option>
+                  <option>Dhablan</option>
+                  <option>Ucha Gao</option>
+                  <option>Dughat</option>
+                  <option>Taroda Kalan</option>
+                  <option>Sheikhupur</option>
+                  <option>Bibipur</option>
+                  <option>Jhandi</option>
+                  <option>Ramgarh</option>
+                  <option>Dudhad</option>
+                  </select>
+                    `;
+          } else if (block1 == 2) {
+            vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                        <option selected hidden disabled>Please Select</option>
+                        <option>Allowal</option>
+                        <option>Amampura</option>
+                        <option>Baran</option>
+                        <option>Dandrala kharaur</option>
+                        <option>Dhangera</option>
+                        <option>Hardaspur</option>
+                        <option>Hiana khurd</option>
+                        <option>Jassowal</option>
+                        <option>Kalwa</option>
+                        <option>KathMathi</option>
+                        <option>Kaidupur</option>
+                        <option>Kansuha kalan</option>
+                        <option>Khurd</option>
+                        <option>Kishanghar</option>
+                        <option>Lachkani</option>
+                        <option>Lang</option>
+                        <option>Labana Teku</option>
+                        <option>Lalauda</option>
+                        <option>Mirjapur</option>
+                        <option>Mandaur</option>
+                        <option>Nandpur Kesho</option>
+                        <option>New Fatehpur</option>
+                        <option>Paidan</option>
+                        <option>Paidni khurd</option>
+                        <option>Phaggan Majra</option>
+                        <option>Rongla</option>
+                        <option>Rohti basta singh</option>
+                        <option>Rohti khas</option>
+                        <option>Shamala</option>
+                        <option>Simbro</option>
+                        <option>Ajnauda kalan</option>
+                        <option>Challaila</option>
+                        <option>Dhanaura</option>
+                        <option>Faridpur</option>
+                        <option>Ghamrouda</option>
+                        <option>Hiana kalan</option>
+                        <option>"Harkishanpura Alise </option>
+                        <option>Bakshiwala"</option>
+                        <option>Ichhewal</option>
+                        <option>Kasiana</option>
+                        <option>Labana karmu</option>
+                        <option>Rorgarh</option>
+                        <option>Rohta</option>
+                        <option>Rohti mauran</option>
+                        <option>Sidhuwal</option>
+                        <option>Dhanauri (A)</option>
+                        <option>Hirdapur</option>
+                        <option>Laut</option>
+                        <option>Majri Akalian</option>
+                        <option>Lubana madal town</option>
+                        <option>New Baran</option>
+                        <option>Ranjit Nagar</option>
+                        <option>Aman Bihar</option>
+                        <option>Babu Singh Colony</option>
+                        <option>Carriar Inclave</option>
+                        <option>Ajnauda khurd</option>
+                        <option>Rohti Chhanna</option>
+                        <option>Seona</option>
+                        <option>Ramghar Chhanna</option>
+                        <option>Karamgarh</option>
+                        <option>Vikas Nagar</option>
+
+                    </select>`;
+          } else if (block1 == 4) {
+            console.log(block1);
+            vill.innerHTML = `
+                    <label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                        <option selected hidden disabled>Please Select</option>
+                        <option>Abadalpur</option>
+                        <option>Adalatiwala</option>
+                        <option>Ehru Kalan</option>
+                        <option>Ehru Khurd</option>
+                        <option>Akalgarh</option>
+                        <option>Akbarpur Afghana</option>
+                        <option>Akbarpur Muradmajra</option>
+                        <option>Alipur Sikhan</option>
+                        <option>Alipur Wazir Sahib</option>
+                        <option>Aliwal</option>
+                        <option>Arnoli</option>
+                        <option>Asmanpur</option>
+                        <option>Aujan</option>
+                        <option>Badla</option>
+                        <option>Badli</option>
+                        <option>Bangdan</option>
+                        <option>Barkatpur</option>
+                        <option>Baazigar Basti</option>
+                        <option>Behal</option>
+                        <option>Behru</option>
+                        <option>Bahadurpur Meeranwala</option>
+                        <option>Bahadurgarh New</option>
+                        <option>Bhagwanpur Jattan</option>
+                        <option>Bhakhar</option>
+                        <option>Bhattian</option>
+                        <option>Bhasmada</option>
+                        <option>Bhunarheri</option>
+                        <option>Binjal</option>
+                        <option>Bishangarh Jhungian</option>
+                        <option>Bishannagar Kotla</option>
+                        <option>Bibipur Khurd</option>
+                        <option>Binjal Jattan</option>
+                        <option>Budhmor</option>
+                        <option>Budemajra</option>
+                        <option>Chaprahar</option>
+                        <option>Chidwa</option>
+                        <option>Chidwi</option>
+                        <option>Choohat</option>
+                        <option>Dadherian</option>
+                        <option>Devinagar Heera Singh Wala</option>
+                        <option>Devinagar Sawai Singh Wala</option>
+                        <option>Dhagdoli</option>
+                        <option>Dhandian</option>
+                        <option>Dharamgarh Kathgarh</option>
+                        <option>Daulatpur Fakiran</option>
+                        <option>Dudhan Gujjarn</option>
+                        <option>Dudhan Sajjan</option>
+                        <option>Durd</option>
+                        <option>Faridpur</option>
+                        <option>Ganeshpur</option>
+                        <option>Gangrola</option>
+                        <option>Gangroli</option>
+                        <option>Gharam</option>
+                        <option>Guthamra</option>
+                        <option>Harana</option>
+                        <option>Hasanpur Kamboan</option>
+                        <option>Hajipur</option>
+                        <option>Hiragarh</option>
+                        <option>Hussainpura</option>
+                        <option>Ibrahimpur</option>
+                        <option>Isarheri</option>
+                        <option>Jalbera</option>
+                        <option>Jalalabad</option>
+                        <option>Zodhpur</option>
+                        <option>Julahkhedi</option>
+                        <option>Kachwa</option>
+                        <option>Kachwi</option>
+                        <option>Kanaheri</option>
+                        <option>Katakheri</option>
+                        <option>Kathgarh Chhanna</option>
+                        <option>Khatka Kalan</option>
+                        <option>Khatka Khurd</option>
+                        <option>Khalsapur</option>
+                        <option>Khansa</option>
+                        <option>Kharabgarh</option>
+                        <option>Khatoli</option>
+                        <option>Kheri Raju Singh</option>
+                        <option>Kheri Runwa</option>
+                        <option>Kishanpur</option>
+                        <option>Lahila Jangir</option>
+                        <option>Magar Sahib</option>
+                        <option>Majra Kalan</option>
+                        <option>Maqboolpur Bhaini</option>
+                        <option>Malakpur Kamboan</option>
+                        <option>Malkan Roorkee</option>
+                        <option>Mandi</option>
+                        <option>Manjal Kalan</option>
+                        <option>Manjal Khurd</option>
+                        <option>Maru</option>
+                        <option>Mashal Basti</option>
+                        <option>Masingan</option>
+                        <option>Mahima</option>
+                        <option>Mahmoodpur</option>
+                        <option>Mahmoodpur Jatta</option>
+                        <option>Mahmoodpur Roorkee</option>
+                        <option>Mihon</option>
+                        <option>Mehtabgarh</option>
+                        <option>Mohalgarh</option>
+                        <option>Makhmelpur</option>
+                        <option>Nain Kalan</option>
+                        <option>Nain Khurd</option>
+                        <option>Manak Daher alias Nandgarh</option>
+                        <option>Narayangarh Kohlemajra</option>
+                        <option>Niyamatpur</option>
+                        <option>Nijampur</option>
+                        <option>Noorpur Franswala</option>
+                        <option>Naurangwal</option>
+                        <option>Panjeta</option>
+                        <option>Pathanmajra</option>
+                        <option>Patti Jhungian</option>
+                        <option>Patti Kartarpur</option>
+                        <option>Pipalkhedi</option>
+                        <option>Palakhan</option>
+                        <option>Prempura</option>
+                        <option>Prod</option>
+                        <option>Punia Khana</option>
+                        <option>Pur</option>
+                        <option>Rajgarh</option>
+                        <option>Rasulpur Dundimajra</option>
+                        <option>Ratakhera</option>
+                        <option>Rohar Jangir</option>
+                        <option>Roshanpur</option>
+                        <option>Sadhu Nagar</option>
+                        <option>Salempur Walia</option>
+                        <option>Sampurngarh</option>
+                        <option>Sanipur</option>
+                        <option>Sarkda Farm</option>
+                        <option>Sarustigarh</option>
+                        <option>Shadipur</option>
+                        <option>Sheikhupur</option>
+                        <option>Sheikhupur Jangir</option>
+                        <option>Shergarh</option>
+                        <option>Sirkapada</option>
+                        <option>Sunder Singh Wala</option>
+                        <option>Tajalpur</option>
+                        <option>Tada</option>
+                        <option>Tasalpur</option>
+                        <option>Tejjan</option>
+                        <option>Thakargarh</option>
+                        <option>Tiwana</option>
+                        <option>Tauran</option>
+                        <option>Udaipur Diwanwala</option>
+                        <option>Ultapur Jwalapur</option>
+                        <option>Upali</option>
+                    </select>
+                    `;
+          } else if (block1 == 3) {
+            vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                               <option selected hidden disabled>Please Select</option>
+                                <option>Rathian</option>
+                                <option>Sankarpur</option>
+                                <option>Panodian</option>
+                                <option>Asarpur</option>
+                                <option>Kartarpur</option>
+                                <option>Nurkherian</option>
+                                <option>Punian Jatta</option>
+                                <option>Hussainpur Jola</option>
+                                <option>Nanansoon</option>
+                                <option>Charason</option>
+                                <option>Alipur Jatta</option>
+                                <option>Nogawa</option>
+                                <option>Abadi Kartarpur</option>
+                                <option>Koli</option>
+                                <option>Khuda</option>
+                                <option>Khasian</option>
+                                <option>Mehergarh Batti</option>
+                                <option>Batta</option>
+                                <option>Fatehpur Rajputa</option>
+                                <option>Balamgarh</option>
+                                <option>Balla</option>
+                                <option>Ganore</option>
+                                <option>Mahadipur</option>
+                                <option>Samaspur</option>
+                                <option>Jalalpur</option>
+                                <option>Lalina</option>
+                                <option>Bolar Kalan</option>
+                                <option>Suniarheri</option>
+                                <option>Alampur</option>
+                                <option>Fatehpur Jatta</option>
+                                <option>Chamarheri</option>
+                                <option>Maradpur</option>
+                                <option>Gospur</option>
+                                <option>Reeth Kheri</option>
+                                <option>Rasulpur Joda</option>
+                                <option>Raipur Mandala</option>
+                                <option>Bhathla</option>
+                                <option>Mithu Majra</option>
+                                <option>Kasba Roorkee</option>
+                                <option>Don Kalan</option>
+                                <option>Hasanpur Prahota</option>
+                                <option>Jafarpur</option>
+                                <option>Don Khurd</option>
+                                <option>Janheria</option>
+                                <option>Jogipur</option>
+                                <option>Dhereri Jatta</option>
+                                <option>Mardaheri</option>
+                                <option>Boser Kala</option>
+                                <option>Paharipur</option>
+                                <option>Kakkepur</option>
+                                <option>Dulbha</option>
+                                <option>Salempur Jattan</option>
+                                <option>Akot</option>
+                                <option>Safeda</option>
+                                <option>Bilaspur</option>
+                                <option>Balbera</option>
+                                <option>Bhateri</option>
+                                <option>Salempur Brahmina</option>
+                                <option>Karanpur</option>
+                                <option>Jafarnagar</option>
+                                <option>Budhanpur</option>
+                                <option>Chaura</option>
+                                <option>Mohabbatpur</option>
+                                <option>Bauldi</option>
+                                <option>Kotla Gahiru</option>
+                                <option>Malakpur Jattan</option>
+                                <option>Dera Baazigar</option>
+                                <option>Panjola</option>
+                                <option>Mehmadpur Jatta</option>
+                                <option>Kulemajra</option>
+                                <option>Ghalaudi</option>
+                                <option>Dera Jagatpura</option>
+                                <option>Suniar Hedi alias Gobindpura</option>
+                                <option>Model Town Raipur Mandla</option>
+                                <option>Farm Bahadurgarh</option>
+                                <option>Faloli</option>
+                                <option>Pratapgarh</option>
+                                <option>Dandoa</option>
+                                <option>Dolatpur</option>
+                                <option>Mehmadpur Araya</option>
+                                <option>Saifdipur</option>
+                                <option>Sekhpur Kamboa</option>
+                                <option>Beed Bahadurgarh</option>
+                                <option>Nagar</option>
+                                <option>Peer Colony</option>
+                                <option>Heera Colony</option>
+                                <option>Hargobind Colony</option>
+                                <option>Guru Nanak Nagar</option>
+                                <option>Mazri</option>
+                                <option>Risi Colony</option>
+                                <option>Urban Nagar</option>
+                                <option>Dealwall</option>
+                                <option>Beed Colony</option>
+                                <option>Nava Mehmadpur Jatta</option>
+                                <option>Karheri</option>
+                                <option>Boharpur</option>
+                                <option>Vidya Nagar</option>
+                                <option>Dalanpur</option>
+                                <option>Sahibnagar Theri</option>
+                        </select>`;
+          }
+        });
+      }
     </script>
-</body>
-
+  </body>
 </html>
