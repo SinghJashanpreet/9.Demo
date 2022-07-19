@@ -1,109 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/bootstrap.css" />
     <title>Register Patient</title>
     <style>
-      * {
-        padding: 1%;
-      }
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        line-height: 5vh;
-        /* width: 30%; */
-      }
-      .card-header {
-        margin: -15px;
-      }
+        * {
+            padding: 1%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            line-height: 5vh;
+            /* width: 30%; */
+        }
+
+        .card-header {
+            margin: -15px;
+        }
     </style>
     <style>
-      body {
-        padding: 1px;
+        body {
+            padding: 1px;
 
-        background-image: url("1.jpg");
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-      }
-      #Main {
-        background-color: white;
-      }
-      #header {
-        color: white;
-      }
+            background-image: url("1.jpg");
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #Main {
+            background-color: white;
+        }
+
+        #header {
+            color: white;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
-    <div
-      class="text-center bg-dark"
-      style="font-weight: bold; font-size: 20px"
-      id="header"
-    >
-      Welcome Red Cross Hospital
+<body>
+    <div class="text-center bg-dark" style="font-weight: bold; font-size: 20px" id="header">
+        Welcome Red Cross Hospital
     </div>
     <hr />
     <div class="container shadow w-45" id="Main">
-      <div class="card-header text-center bg-dark text-white">
-        Register a new Patient
-      </div>
-      <form action="submitPatient.php" method="post">
-        <label for="name" style="margin-top: 30px">Name: </label>
-        <input type="text" id="name" name="Name" /><br />
-        <label for="YOB" style="margin-top: 30px">Enter Year of Birth: </label>
-        <input type="number" id="YOB" name="YOB" max="2015" min="1930" step="1" /><br />
-    
-        <label for="district">Select the district</label>
-
-        <select
-          name="District"
-          id="district"
-          onchange="districtHiddenContent()"
-          required
-        >
-          <option disabled selected hidden>Select</option>
-          <option value="1">Patiala</option>
-          <option value="0">Other</option>
-        </select>
-        <br />
-
-        <div id="hiddenContent"></div>
-
-        <label for="drug">Major Drug Dependencies: </label>
-        <input type="text" id="drug" name="Depend" /><br />
-        <center>
-          <button type="submit" class="btn btn-dark w-25 my-4">Register</button>
-        </center>
-        <div class="card-footer text-center">
-          <smaller>&copy:SinghJS </smaller>
+        <div class="card-header text-center bg-dark text-white">
+            Register a new Patient
         </div>
-      </form>
+        <form action="submitPatient.php" method="post">
+            <label for="name" style="margin-top: 30px">Name: </label>
+            <input type="text" id="name" name="Name" required/><br />
+            <label for="YOB" style="margin-top: 30px">Enter Year of Birth: </label>
+            <input type="number" id="YOB" name="YOB" max="2015" min="1930" step="1" required/><br />
+
+            <label for="district">Select the district</label>
+
+            <select name="District" id="district" onchange="districtHiddenContent()" required>
+                <option hidden>Select</option>
+                <option value="1">Patiala</option>
+                <option value="0">Other</option>
+            </select>
+            <br />
+
+            <div id="hiddenContent"></div>
+
+            <label for="drug">Major Drug Dependencies: </label>
+            <input type="text" id="drug" name="Depend" required/><br />
+            <center>
+                <button type="submit" class="btn btn-dark w-25 my-4">Register</button>
+            </center>
+        </form>
     </div>
-  
-  
-  <script>
-      console.log("jashan");
-      function districtHiddenContent() {
-        document
-          .getElementById("district")
-          .addEventListener("click", (event) => {
-            var value = document.getElementById("district").value;
-            var hiddenContent = document.getElementById("hiddenContent");
-            if (value == 0) {
-              console.log("value = 0");
-              hiddenContent.innerHTML = " ";
-            } else {
-              console.log("value = 1");
-              hiddenContent.innerHTML = `      <label for="location">Location:</label>
-                <input type="radio" name="location" name="0" required><label>Rural</label>
-                <input type="radio" name="location" name="1" required><label>Urban</label><br>
+
+
+    <script>
+        console.log("jashan");
+        function districtHiddenContent() {
+            document
+                .getElementById("district")
+                .addEventListener("click", (event) => {
+                    var value = document.getElementById("district").value;
+                    var hiddenContent = document.getElementById("hiddenContent");
+                    if (value == 0) {
+                        console.log("value = 0");
+                        hiddenContent.innerHTML = " ";
+                    } else {
+                        console.log("value = 1");
+                        hiddenContent.innerHTML = `      <label for="location">Location:</label>
+                <input type="radio" name="location" value="0" required><label>Rural</label>
+                <input type="radio" name="location" value="1" required><label>Urban</label><br>
               
             <label for="subdivision">Select the subdivision</label>
             <select name="Sub_division" id="subdivision"  onchange="block()" required>
@@ -119,77 +113,77 @@
      
 
             <label for="gali">Gali/Mohalla: </label>
-            <input type="text" id="gali" value="Gali"><br>
+            <input type="text" id="gali" name="Gali" required><br>
         `;
-            }
-          });
-      }
+                    }
+                });
+        }
 
-      function block() {
-        document
-          .getElementById("subdivision")
-          .addEventListener("click", (event) => {
-            var sub = document.getElementById("subdivision").value;
-            var block = document.getElementById("block");
-            var ele = document.getElementsByName("location");
-            var loc = 2;
-            for (var i = 0; i < ele.length; i++) {
-              if (ele[i].checked) {
-                loc = ele[i].value;
-                break;
-              }
-            }
+        function block() {
+            document
+                .getElementById("subdivision")
+                .addEventListener("click", (event) => {
+                    var sub = document.getElementById("subdivision").value;
+                    var block = document.getElementById("block");
+                    var ele = document.getElementsByName("location");
+                    var loc = 2;
+                    for (var i = 0; i < ele.length; i++) {
+                        if (ele[i].checked) {
+                            loc = ele[i].value;
+                            break;
+                        }
+                    }
 
-            if (loc == 1) {
-              if (sub == 1)
-                block.innerHTML = `<label for="city">City: </label>
+                    if (loc == 1) {
+                        if (sub == "Patiala")
+                            block.innerHTML = `<label for="city">City: </label>
                     <select name="city" id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
                     <option value="Patiala">Patiala</option>
                     <option value="Sanour">Sanour</option>
                     </select>
                     `;
-              else if (sub == 2)
-                block.innerHTML = `<label for="city">City: </label>
+                        else if (sub == "Nabha")
+                            block.innerHTML = `<label for="city">City: </label>
                     <select id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
                     <option value="Nabha">Nabha</option>
                     <option value="Bhadson">Bhadson</option>
                     </select>
                     `;
-              else if (sub == 3)
-                block.innerHTML = `<label for="city">City: </label>
+                        else if (sub == "Rajpura")
+                            block.innerHTML = `<label for="city">City: </label>
                     <select id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
                     <option value="Rajpura">Rajpura</option>
                     <option value="Ghanour">Ghanour</option>
                     </select>
                     `;
-              else if (sub == 4)
-                block.innerHTML = `<label for="city">City: </label>
+                        else if (sub == "Samana")
+                            block.innerHTML = `<label for="city">City: </label>
                     <select id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
                     <option value="">Samana</option>
                     </select>
                     `;
-              else if (sub == 5)
-                block.innerHTML = `<label for="city">City: </label>
+                        else if (sub == "Patran")
+                            block.innerHTML = `<label for="city">City: </label>
                     <select id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
                     <option value="Patran">Patran</option>
                     <option value="Ghagga">Ghagga</option>
                     </select>
                     `;
-              else if (sub == 6)
-                block.innerHTML = `<label for="city">City: </label>
+                        else if (sub == "Dudhan Sadhan")
+                            block.innerHTML = `<label for="city">City: </label>
                     <select id="city" name="city" required>
                     <option selected disabled hidden>Select</option>
                     <option value="Devigarh">Devigarh</option>
                     </select>
                     `;
-            } else {
-              if (sub == 1)
-                block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    } else {
+                        if (sub == "Patiala")
+                            block.innerHTML = `<label for="block">Block/Tehsil: </label>
                     <select id="block1" name="block1" onclick="cities()" required>
                     <option selected disabled hidden>Select</option>
                     <option value="Patiala">Patiala</option>
@@ -199,49 +193,49 @@
                     </select>
                     <div id="vill"></div>
                     `;
-              else if (sub == 2)
-                block.innerHTML = `<label for="block">Block/Tehsil: </label>
-                    <select id="block" name="block" onclick="cities()" required>
+                        else if (sub == "Nabha")
+                            block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block1" name="block1" onclick="cities()" required>
                     <option selected disabled hidden>Select</option>
                     <option value="Nabha">Nabha</option>
                     </select>
                     <div id="vill"></div>`;
-              else if (sub == 3)
-                block.innerHTML = `<label for="block">Block/Tehsil: </label>
-                    <select id="block" name="block" onclick="cities()" required>
+                        else if (sub == "Rajpura")
+                            block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block1" name="block1" onclick="cities()" required>
                     <option selected disabled hidden>Select</option>
                     <option value="Rajpura">Rajpura</option>
                     <option value="Ghanour">Ghanour</option>
                     <option value="Shambhu Kalan">Shambhu Kalan</option>
                     </select>
                     <div id="vill"></div>`;
-              else if (sub == 4)
-                block.innerHTML = `<label for="block">Block/Tehsil: </label>
-                    <select id="block" name="block" onclick="cities()" required>
+                        else if (sub == "Samana")
+                            block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block1" name="block1" onclick="cities()" required>
                     <option selected disabled hidden>Select</option>
                     <option value="Samana">Samana</option>
                     </select>
                     <div id="vill"></div>`;
-              else if (sub == 5)
-                block.innerHTML = `<label for="block">Block/Tehsil: </label>
-                    <select id="block" name="block" onclick="cities()" required>
+                        else if (sub == "Patran")
+                            block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block1" name="block1" onclick="cities()" required>
                     <option selected disabled hidden>Select</option>
                     <option value="Patran">Patran</option>
                     </select>
                     <div id="vill"></div>`;
-              else if (sub == 6) block.innerHTML = ``;
-            }
-          });
-      }
+                        else if (sub == "Dudhan Sadhan") block.innerHTML = ``;
+                    }
+                });
+        }
 
-      function cities() {
-        document.getElementById("block1").addEventListener("click", (event) => {
-          var block1 = document.getElementById("block1").value;
-          var vill = document.getElementById("vill");
-          console.log(block1);
+        function cities() {
+            document.getElementById("block1").addEventListener("click", (event) => {
+                var block1 = document.getElementById("block1").value;
+                var vill = document.getElementById("vill");
+                console.log(block1);
 
-          if (block1 == 1) {
-            vill.innerHTML = `<label for="village">Village: </label>
+                if (block1 == "Patiala")
+                    vill.innerHTML = `<label for="village">Village: </label>
                     <select id="village" name="village" required>
                   <option selected disabled hidden>Please select</option>
                   <option>Mavi Sappan</option>
@@ -331,8 +325,8 @@
                   <option>Dudhad</option>
                   </select>
                     `;
-          } else if (block1 == 2) {
-            vill.innerHTML = `<label for="village">Village: </label>
+                else if (block1 == "Patiala Rural")
+                    vill.innerHTML = `<label for="village">Village: </label>
                     <select id="village" name="village" required>
                         <option selected hidden disabled>Please Select</option>
                         <option>Allowal</option>
@@ -398,9 +392,9 @@
                         <option>Vikas Nagar</option>
 
                     </select>`;
-          } else if (block1 == 4) {
-            console.log(block1);
-            vill.innerHTML = `
+                else if (block1 == "Bhunerheri") {
+                    console.log(block1);
+                    vill.innerHTML = `
                     <label for="village">Village: </label>
                     <select id="village" name="village" required>
                         <option selected hidden disabled>Please Select</option>
@@ -550,8 +544,8 @@
                         <option>Upali</option>
                     </select>
                     `;
-          } else if (block1 == 3) {
-            vill.innerHTML = `<label for="village">Village: </label>
+                } else if (block1 == "Sanour")
+                    vill.innerHTML = `<label for="village">Village: </label>
                     <select id="village" name="village" required>
                                <option selected hidden disabled>Please Select</option>
                                 <option>Rathian</option>
@@ -654,8 +648,8 @@
                                 <option>Dalanpur</option>
                                 <option>Sahibnagar Theri</option>
                         </select>`;
-          }
-                 else if (block1 == 5) {
+                
+                else if (block1 == "Nabha")
                     vill.innerHTML = `<label for="village">Village: </label>
                     <select id="village" name="village" required>
                                <option selected hidden disabled>Please Select</option>
@@ -800,9 +794,9 @@
                                <option value="">Udha</option>
                                <option value="">Upla</option>
                                <option value="">Wajidpur</option>
-                               </select>`}
+                               </select>`
 
-                else if (block1 == 6) {
+                else if (block1 == "Rajpura")
                     vill.innerHTML = `<label for="village">Village: </label>
                     <select id="village" name="village" required>
                                <option selected hidden disabled>Please Select</option>
@@ -903,12 +897,11 @@
                                <option value="">Kaloli Jattan</option>
                                <option value="">Saamdu Camp</option>
                             </select>`
-                }
 
             })
         }
-        });
-      }
+
     </script>
-  </body>
+</body>
+
 </html>
