@@ -41,24 +41,7 @@
     }
 
    </style>
-
-
-<script type="text/javascript">
-    function loadUrl(newLocation)
-    {
-      window.location = newLocation;
-      return false;
-    }
-
-    window.location.reload()
-    {
-        loadUrl('http://localhost/phplogin/login.html');
-    }
-    </script>
-    
-    
-
-
+ 
 </head>
 
 <body>
@@ -73,21 +56,21 @@
     <form action="submitHospital.php" method="post">
         <label for="name" style="margin-top: 30px;">Name of hospital: </label>
         <input type="text" id="name" name="name"><br>
-            <label for="location">Type:</label>
-            <input type="radio" id="location" name="location"><label>Government</label>
-            <input type="radio" id="location" name="location"><label>Private</label><br>
-            <label for="city">Name of Nodal Officer </label>
-            <input type="text" id="city" name="N_name"><br>
-            <label for="gali">Email id: </label>
-            <input type="email" id="gali" name="email"><br>
+            <label for="type">Type:</label>
+            <input type="radio" name="type" value="GOV"><label>Government</label>
+            <input type="radio" name="type" value="PVT"><label>Private</label><br>
+            <label for="n_name">Name of Nodal Officer </label>
+            <input type="text" id="n_name" name="n_name"><br>
+            <label for="email">Email id: </label>
+            <input type="email" id="email" name="email"><br>
             <label for="mobile">Mobile Number: </label>
             <input type="number" name="mobile"><br>
             <label for="password">Generate Password: </label>
-            <input type="password" name="password"><br>
+            <input type="password" id="password" name="password"><br>
             <label for="conf-password">Confirm Password: </label>
-            <input type="password" name="conf-password">
+            <input type="password" id="conf-password" name="conf-password">
             <center>
-                <button type="submit" class="btn btn-dark w-25 my-4"> Add </button></center>
+                <button type="submit" class="btn btn-dark w-25 my-4" id="button"> Add </button></center>
                 <div class="card-footer text-center">
                     <smaller>&copy:SinghJS </smaller>
                   </div>
@@ -97,6 +80,16 @@
 <div class="card-footer text-center ">
     <small>&copy:SinghJS </small>
   </div>
+  <!-- <script>
+    function check(){
+    var password=document.getElementById("password").value;
+    var confpassword=document.getElementById("conf-password").value;
+    var button=document.getElementById("button");
+    if(password!=confpassword)
+    button.disabled=true;
+    else
+    button.disabled=false;}
+  </script> -->
 </body>
 
 </html>
