@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <title>Register Patient</title>
+    <style>
+        * {
+            padding: 1%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            line-height: 5vh;
+            /* width: 30%; */
+        }
+
+        .card-header {
+            margin: -15px;
+        }
+    </style>
+    <style>
+        body {
+            padding: 1px;
+
+            background-image: url("1.jpg");
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #Main {
+            background-color: white;
+        }
+
+        #header {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="text-center bg-dark" style="font-weight: bold; font-size: 20px" id="header">
+        Welcome Red Cross Hospital
+    </div>
+    <hr />
+    <div class="container shadow w-45" id="Main">
+        <div class="card-header text-center bg-dark text-white">
+            Register a new Patient
+        </div>
+        <form action="submitPatient.php" method="post">
+            <label for="name" style="margin-top: 30px">Name: </label>
+            <input type="text" id="name" name="Name" required /><br />
+            <label for="YOB" style="margin-top: 30px">Enter Year of Birth: </label>
+            <input type="number" id="YOB" name="YOB" max="2015" min="1930" step="1" required /><br />
+
+            <label for="district">Select the district</label>
+
+            <select name="District" id="district" onchange="districtHiddenContent()" required>
+                <option hidden>Select</option>
+                <option value="1">Patiala</option>
+                <option value="0">Other</option>
+            </select>
+            <br />
+
+            <div id="hiddenContent"></div>
+
+            <label for="drug">Major Drug Dependencies: </label>
+            <input type="text" id="drug" name="Depend" required /><br />
+            <center>
+                <button type="submit" class="btn btn-dark w-25 my-4">Register</button>
+            </center>
+        </form>
+    </div>
+
+
+    <script>
+        console.log("jashan");
+        function districtHiddenContent() {
+            document
+                .getElementById("district")
+                .addEventListener("click", (event) => {
+                    var value = document.getElementById("district").value;
+                    var hiddenContent = document.getElementById("hiddenContent");
+                    if (value == 0) {
+                        console.log("value = 0");
+                        hiddenContent.innerHTML = " ";
+                    } else {
+                        console.log("value = 1");
+                        hiddenContent.innerHTML = `      <label for="location">Location:</label>
+                <input type="radio" name="location" value="0" required><label>Rural</label>
+                <input type="radio" name="location" value="1" required><label>Urban</label><br>
+                <label for="subdivision">Select the subdivision</label>
+            <select name="Sub_division" id="subdivision"  onchange="block()" required>
+                <option disabled selected hidden>Select</option>
+                <option value="Patiala">Patiala</option>
+                <option value="Nabha">Nabha</option>
+                <option value="Rajpura">Rajpura</option>
+                <option value="Samana">Samana</option>
+                <option value="Patran">Patran</option>
+                <option value="Dudhan Sadhan">Dudhan Sadhan</option>
+            </select>
+            <br>
+            <span id="block" value="block"></span><br>
+     
+
+            <label for="gali">Gali/Mohalla: </label>
+            <input type="text" id="gali" name="Gali" required><br>
+        `;
+                    }
+                });
+        }
+
+        // function handleChange1() {
+        //     var dud = document.getElementById("dud");
+        //     var ele = document.getElementsByName("location");
+        //     var loc = 2;
+        //     for (var i = 0; i < ele.length; i++) {
+        //         ele[i].addEventListener("click", (event) => {
+        //             alert(ele[i].value);
+        //         }
+        //         );
+        //     }
+        //     console.log(loc);
+        //     if (loc == 1)
+        //         dud.innerHTML = ``;
+
+        //     else
+        //         dud.innerHTML = `<label for="subdivision">Select the subdivision</label>
+        //     <select name="Sub_division" id="subdivision"  onchange="block()" required>
+        //         <option disabled selected hidden>Select</option>
+        //         <option value="Patiala">Patiala</option>
+        //         <option value="Nabha">Nabha</option>
+        //         <option value="Rajpura">Rajpura</option>
+        //         <option value="Samana">Samana</option>
+        //         <option value="Patran">Patran</option>
+        //     </select>`;
+
+        // }
+
+        function block() {
+            document
+                .getElementById("subdivision")
+                .addEventListener("click", (event) => {
+                    var sub = document.getElementById("subdivision").value;
+                    var block = document.getElementById("block");
+                    var ele = document.getElementsByName("location");
+                    var loc = 2;
+                    for (var i = 0; i < ele.length; i++) {
+                        if (ele[i].checked) {
+                            loc = ele[i].value;
+                            break;
+                        }
+                    }
+
+                    if (loc == 1) {
+                        if (sub == "Patiala")
+                            block.innerHTML = `<label for="city">City: </label>
+                    <select name="city" id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Patiala">Patiala</option>
+                    <option value="Sanour">Sanour</option>
+                    </select>
+                    `;
+                        else if (sub == "Nabha")
+                            block.innerHTML = `<label for="city">City: </label>
+                    <select id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Nabha">Nabha</option>
+                    <option value="Bhadson">Bhadson</option>
+                    </select>
+                    `;
+                        else if (sub == "Rajpura")
+                            block.innerHTML = `<label for="city">City: </label>
+                    <select id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Rajpura">Rajpura</option>
+                    <option value="Ghanour">Ghanour</option>
+                    </select>
+                    `;
+                        else if (sub == "Samana")
+                            block.innerHTML = `<label for="city">City: </label>
+                    <select id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="">Samana</option>
+                    </select>
+                    `;
+                        else if (sub == "Patran")
+                            block.innerHTML = `<label for="city">City: </label>
+                    <select id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Patran">Patran</option>
+                    <option value="Ghagga">Ghagga</option>
+                    </select>
+                    `;
+                        else if (sub == "Dudhan Sadhan")
+                            block.innerHTML = `<label for="city">City: </label>
+                    <select id="city" name="city" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Devigarh">Devigarh</option>
+                    </select>
+                    `;
+                    } else {
+                        if (sub == "Patiala")
+                            block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block1" name="block1" onchange="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Patiala">Patiala</option>
+                    <option value="Patiala Rural">Patiala Rural</option>
+                    <option value="Sanour">Sanour</option>
+                    <option value="Bhunerheri">Bhunerheri</option>
+                    </select>
+                    <div id="vill"></div>
+                    `;
+                        else if (sub == "Nabha")
+                            block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block1" name="block1" onchange="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Nabha">Nabha</option>
+                    </select>
+                    <div id="vill"></div>`;
+                        else if (sub == "Rajpura")
+                            block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block1" name="block1" onchange="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Rajpura">Rajpura</option>
+                    <option value="Ghanour">Ghanour</option>
+                    <option value="Shambhu Kalan">Shambhu Kalan</option>
+                    </select>
+                    <div id="vill"></div>`;
+                        else if (sub == "Samana")
+                            block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block1" name="block1" onchange="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Samana">Samana</option>
+                    </select>
+                    <div id="vill"></div>`;
+                        else if (sub == "Patran")
+                            block.innerHTML = `<label for="block">Block/Tehsil: </label>
+                    <select id="block1" name="block1" onchange="cities()" required>
+                    <option selected disabled hidden>Select</option>
+                    <option value="Patran">Patran</option>
+                    </select>
+                    <div id="vill"></div>`;
+                        else if (sub == "Dudhan Sadhan") block.innerHTML = ``;
+                    }
+                });
+        }
+
+        function cities() {
+            document.getElementById("block1").addEventListener("click", (event) => {
+                var block1 = document.getElementById("block1").value;
+                var vill = document.getElementById("vill");
+                console.log(block1);
+
+                if (block1 == "Patiala")
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                  <option selected disabled hidden>Please select</option>
+                  <option value='Mavi Sappan'>Mavi Sappan</option>
+<option value='Langaroi'>Langaroi</option>
+<option value='Barsat'>Barsat</option>
+<option value='Bhanara'>Bhanara</option>
+<option value='Bathoi Kalan'>Bathoi Kalan</option>
+<option value='Sher Majra'>Sher Majra</option>
+<option value='Drola'>Drola</option>
+<option value='Hari Nagarkhedki'>Hari Nagarkhedki</option>
+<option value='Kheri Mania'>Kheri Mania</option>
+<option value='Bibipur'>Bibipur</option>
+<option value='Balipur'>Balipur</option>
+<option value='Sassa Gujaran'>Sassa Gujaran</option>
+<option value='Amamnagar'>Amamnagar</option>
+<option value='Dharmaheri'>Dharmaheri</option>
+<option value='Randhawa'>Randhawa</option>
+<option value='Sadarpur'>Sadarpur</option>
+<option value='Karhali'>Karhali</option>
+<option value='Ramnagar Bakshiwala'>Ramnagar Bakshiwala</option>
+<option value='Lalochchi'>Lalochchi</option>
+<option value='Sultanpur'>Sultanpur</option>
+<option value='Kheri Mallan'>Kheri Mallan</option>
+<option value='Kuka'>Kuka</option>
+<option value='Chuharpur Kalan'>Chuharpur Kalan</option>
+<option value='Dadhera'>Dadhera</option>
+<option value='Rakhra'>Rakhra</option>
+<option value='Kalyan'>Kalyan</option>
+<option value='Fatehpur'>Fatehpur</option>
+<option value='Dharamkot'>Dharamkot</option>
+<option value='Chuharpur Jattan'>Chuharpur Jattan</option>
+<option value='Men'>Men</option>
+<option value='Beed Kheri Gujjaran'>Beed Kheri Gujjaran</option>
+<option value='Khusropur'>Khusropur</option>
+<option value='New Kheri'>New Kheri</option>
+<option value='Kheri Gujjara'>Kheri Gujjara</option>
+<option value='Aase Majra'>Aase Majra</option>
+<option value='Kheri Muslamania'>Kheri Muslamania</option>
+<option value='Rajgarh'>Rajgarh</option>
+<option value='Malo Majra'>Malo Majra</option>
+<option value='Tarora Khurd'>Tarora Khurd</option>
+<option value='Mund Khera'>Mund Khera</option>
+<option value='Sessarval'>Sessarval</option>
+<option value='Rauni'>Rauni</option>
+<option value='Bhedpura'>Bhedpura</option>
+<option value='Wajidpur'>Wajidpur</option>
+<option value='Mehmadpur'>Mehmadpur</option>
+<option value='Dilawarpur'>Dilawarpur</option>
+<option value='Paharpur'>Paharpur</option>
+<option value='Chuharpur Marasia'>Chuharpur Marasia</option>
+<option value='Dhakdaba'>Dhakdaba</option>
+<option value='Kakrala'>Kakrala</option>
+<option value='Saini Majra'>Saini Majra</option>
+<option value='Tarai'>Tarai</option>
+<option value='Maddo Majra</option>'>Maddo Majra</option></option>
+<option value='Sawajpur Old'>Sawajpur Old</option>
+<option value='Sawajpur New'>Sawajpur New</option>
+<option value='Bhanari'>Bhanari</option>
+<option value='Gajumjara'>Gajumjara</option>
+<option value='Dashmesh Nagar'>Dashmesh Nagar</option>
+<option value='Bathoi Khurd'>Bathoi Khurd</option>
+<option value='Rivas Brahmana'>Rivas Brahmana</option>
+<option value='Sasi Brahmana'>Sasi Brahmana</option>
+<option value='Dakala'>Dakala</option>
+<option value='Channa Khuhanti'>Channa Khuhanti</option>
+<option value='Khera Jatta'>Khera Jatta</option>
+<option value='Tulewal'>Tulewal</option>
+<option value='Kalar Bhaini'>Kalar Bhaini</option>
+<option value='Droli'>Droli</option>
+<option value='Kheri Barna'>Kheri Barna</option>
+<option value='Ranbirpura'>Ranbirpura</option>
+<option value='Asahib Pura'>Asahib Pura</option>
+<option value='Indra Pura'>Indra Pura</option>
+<option value='Purbia Colony'>Purbia Colony</option>
+<option value='Kheri Gowria'>Kheri Gowria</option>
+<option value='Jahalan'>Jahalan</option>
+<option value='Bishanpur Channa'>Bishanpur Channa</option>
+<option value='Dhamomjra'>Dhamomjra</option>
+<option value='Dhablan'>Dhablan</option>
+<option value='Ucha Gao'>Ucha Gao</option>
+<option value='Dughat'>Dughat</option>
+<option value='Taroda Kalan'>Taroda Kalan</option>
+<option value='Sheikhupur'>Sheikhupur</option>
+<option value='Bibipur'>Bibipur</option>
+<option value='Jhandi'>Jhandi</option>
+<option value='Ramgarh'>Ramgarh</option>
+<option value='Dudhad'>Dudhad</option>
+                  </select>
+                    `;
+                else if (block1 == "Patiala Rural")
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                        <option selected hidden disabled>Please Select</option>
+                        <option value='Allowal'>Allowal</option>
+<option value='Amampura'>Amampura</option>
+<option value='Baran'>Baran</option>
+<option value='Dandrala kharaur'>Dandrala kharaur</option>
+<option value='Dhangera'>Dhangera</option>
+<option value='Hardaspur'>Hardaspur</option>
+<option value='Hiana khurd'>Hiana khurd</option>
+<option value='Jassowal'>Jassowal</option>
+<option value='Kalwa'>Kalwa</option>
+<option value='KathMathi'>KathMathi</option>
+<option value='Kaidupur'>Kaidupur</option>
+<option value='Kansuha kalan'>Kansuha kalan</option>
+<option value='Khurd'>Khurd</option>
+<option value='Kishanghar'>Kishanghar</option>
+<option value='Lachkani'>Lachkani</option>
+<option value='Lang'>Lang</option>
+<option value='Labana Teku'>Labana Teku</option>
+<option value='Lalauda'>Lalauda</option>
+<option value='Mirjapur'>Mirjapur</option>
+<option value='Mandaur'>Mandaur</option>
+<option value='Nandpur Kesho'>Nandpur Kesho</option>
+<option value='New Fatehpur'>New Fatehpur</option>
+<option value='Paidan'>Paidan</option>
+<option value='Paidni khurd'>Paidni khurd</option>
+<option value='Phaggan Majra'>Phaggan Majra</option>
+<option value='Rongla'>Rongla</option>
+<option value='Rohti basta singh'>Rohti basta singh</option>
+<option value='Rohti khas'>Rohti khas</option>
+<option value='Shamala'>Shamala</option>
+<option value='Simbro'>Simbro</option>
+<option value='Ajnauda kalan'>Ajnauda kalan</option>
+<option value='Challaila'>Challaila</option>
+<option value='Dhanaura'>Dhanaura</option>
+<option value='Faridpur'>Faridpur</option>
+<option value='Ghamrouda'>Ghamrouda</option>
+<option value='Hiana kalan'>Hiana kalan</option>
+<option value='Harkishanpura Alise '>Harkishanpura Alise </option>
+<option value='Bakshiwala"'>Bakshiwala"</option>
+<option value='Ichhewal'>Ichhewal</option>
+<option value='Kasiana'>Kasiana</option>
+<option value='Labana karmu'>Labana karmu</option>
+<option value='Rorgarh'>Rorgarh</option>
+<option value='Rohta'>Rohta</option>
+<option value='Rohti mauran'>Rohti mauran</option>
+<option value='Sidhuwal'>Sidhuwal</option>
+<option value='Dhanauri (A)'>Dhanauri (A)</option>
+<option value='Hirdapur'>Hirdapur</option>
+<option value='Laut'>Laut</option>
+<option value='Majri Akalian'>Majri Akalian</option>
+<option value='Lubana madal town'>Lubana madal town</option>
+<option value='New Baran'>New Baran</option>
+<option value='Ranjit Nagar'>Ranjit Nagar</option>
+<option value='Aman Bihar'>Aman Bihar</option>
+<option value='Babu Singh Colony'>Babu Singh Colony</option>
+<option value='Carriar Inclave'>Carriar Inclave</option>
+<option value='Ajnauda khurd'>Ajnauda khurd</option>
+<option value='Rohti Chhanna'>Rohti Chhanna</option>
+<option value='Seona'>Seona</option>
+<option value='Ramghar Chhanna'>Ramghar Chhanna</option>
+<option value='Karamgarh'>Karamgarh</option>
+<option value='Vikas Nagar'>Vikas Nagar</option>
+                    </select>`;
+                else if (block1 == "Bhunerheri") {
+                    console.log(block1);
+                    vill.innerHTML = `
+                    <label for="village">Village: </label>
+                    <select id="village" name="village" required>
+<option selected hidden disabled>Please Select</option>
+<option value='Abadalpur'>Abadalpur</option>
+<option value='Adalatiwala'>Adalatiwala</option>
+<option value='Ehru Kalan'>Ehru Kalan</option>
+<option value='Ehru Khurd'>Ehru Khurd</option>
+<option value='Akalgarh'>Akalgarh</option>
+<option value='Akbarpur Afghana'>Akbarpur Afghana</option>
+<option value='Akbarpur Muradmajra'>Akbarpur Muradmajra</option>
+<option value='Alipur Sikhan'>Alipur Sikhan</option>
+<option value='Alipur Wazir Sahib'>Alipur Wazir Sahib</option>
+<option value='Aliwal'>Aliwal</option>
+<option value='Arnoli'>Arnoli</option>
+<option value='Asmanpur'>Asmanpur</option>
+<option value='Aujan'>Aujan</option>
+<option value='Badla'>Badla</option>
+<option value='Badli'>Badli</option>
+<option value='Bangdan'>Bangdan</option>
+<option value='Barkatpur'>Barkatpur</option>
+<option value='Baazigar Basti'>Baazigar Basti</option>
+<option value='Behal'>Behal</option>
+<option value='Behru'>Behru</option>
+<option value='Bahadurpur Meeranwala'>Bahadurpur Meeranwala</option>
+<option value='Bahadurgarh New'>Bahadurgarh New</option>
+<option value='Bhagwanpur Jattan'>Bhagwanpur Jattan</option>
+<option value='Bhakhar'>Bhakhar</option>
+<option value='Bhattian'>Bhattian</option>
+<option value='Bhasmada'>Bhasmada</option>
+<option value='Bhunarheri'>Bhunarheri</option>
+<option value='Binjal'>Binjal</option>
+<option value='Bishangarh Jhungian'>Bishangarh Jhungian</option>
+<option value='Bishannagar Kotla'>Bishannagar Kotla</option>
+<option value='Bibipur Khurd'>Bibipur Khurd</option>
+<option value='Binjal Jattan'>Binjal Jattan</option>
+<option value='Budhmor'>Budhmor</option>
+<option value='Budemajra'>Budemajra</option>
+<option value='Chaprahar'>Chaprahar</option>
+<option value='Chidwa'>Chidwa</option>
+<option value='Chidwi'>Chidwi</option>
+<option value='Choohat'>Choohat</option>
+<option value='Dadherian'>Dadherian</option>
+<option value='Devinagar Heera Singh Wala'>Devinagar Heera Singh Wala</option>
+<option value='Devinagar Sawai Singh Wala'>Devinagar Sawai Singh Wala</option>
+<option value='Dhagdoli'>Dhagdoli</option>
+<option value='Dhandian'>Dhandian</option>
+<option value='Dharamgarh Kathgarh'>Dharamgarh Kathgarh</option>
+<option value='Daulatpur Fakiran'>Daulatpur Fakiran</option>
+<option value='Dudhan Gujjarn'>Dudhan Gujjarn</option>
+<option value='Dudhan Sajjan'>Dudhan Sajjan</option>
+<option value='Durd'>Durd</option>
+<option value='Faridpur'>Faridpur</option>
+<option value='Ganeshpur'>Ganeshpur</option>
+<option value='Gangrola'>Gangrola</option>
+<option value='Gangroli'>Gangroli</option>
+<option value='Gharam'>Gharam</option>
+<option value='Guthamra'>Guthamra</option>
+<option value='Harana'>Harana</option>
+<option value='Hasanpur Kamboan'>Hasanpur Kamboan</option>
+<option value='Hajipur'>Hajipur</option>
+<option value='Hiragarh'>Hiragarh</option>
+<option value='Hussainpura'>Hussainpura</option>
+<option value='Ibrahimpur'>Ibrahimpur</option>
+<option value='Isarheri'>Isarheri</option>
+<option value='Jalbera'>Jalbera</option>
+<option value='Jalalabad'>Jalalabad</option>
+<option value='Zodhpur'>Zodhpur</option>
+<option value='Julahkhedi'>Julahkhedi</option>
+<option value='Kachwa'>Kachwa</option>
+<option value='Kachwi'>Kachwi</option>
+<option value='Kanaheri'>Kanaheri</option>
+<option value='Katakheri'>Katakheri</option>
+<option value='Kathgarh Chhanna'>Kathgarh Chhanna</option>
+<option value='Khatka Kalan'>Khatka Kalan</option>
+<option value='Khatka Khurd'>Khatka Khurd</option>
+<option value='Khalsapur'>Khalsapur</option>
+<option value='Khansa'>Khansa</option>
+<option value='Kharabgarh'>Kharabgarh</option>
+<option value='Khatoli'>Khatoli</option>
+<option value='Kheri Raju Singh'>Kheri Raju Singh</option>
+<option value='Kheri Runwa'>Kheri Runwa</option>
+<option value='Kishanpur'>Kishanpur</option>
+<option value='Lahila Jangir'>Lahila Jangir</option>
+<option value='Magar Sahib'>Magar Sahib</option>
+<option value='Majra Kalan'>Majra Kalan</option>
+<option value='Maqboolpur Bhaini'>Maqboolpur Bhaini</option>
+<option value='Malakpur Kamboan'>Malakpur Kamboan</option>
+<option value='Malkan Roorkee'>Malkan Roorkee</option>
+<option value='Mandi'>Mandi</option>
+<option value='Manjal Kalan'>Manjal Kalan</option>
+<option value='Manjal Khurd'>Manjal Khurd</option>
+<option value='Maru'>Maru</option>
+<option value='Mashal Basti'>Mashal Basti</option>
+<option value='Masingan'>Masingan</option>
+<option value='Mahima'>Mahima</option>
+<option value='Mahmoodpur'>Mahmoodpur</option>
+<option value='Mahmoodpur Jatta'>Mahmoodpur Jatta</option>
+<option value='Mahmoodpur Roorkee'>Mahmoodpur Roorkee</option>
+<option value='Mihon'>Mihon</option>
+<option value='Mehtabgarh'>Mehtabgarh</option>
+<option value='Mohalgarh'>Mohalgarh</option>
+<option value='Makhmelpur'>Makhmelpur</option>
+<option value='Nain Kalan'>Nain Kalan</option>
+<option value='Nain Khurd'>Nain Khurd</option>
+<option value='Manak Daher alias Nandgarh'>Manak Daher alias Nandgarh</option>
+<option value='Narayangarh Kohlemajra'>Narayangarh Kohlemajra</option>
+<option value='Niyamatpur'>Niyamatpur</option>
+<option value='Nijampur'>Nijampur</option>
+<option value='Noorpur Franswala'>Noorpur Franswala</option>
+<option value='Naurangwal'>Naurangwal</option>
+<option value='Panjeta'>Panjeta</option>
+<option value='Pathanmajra'>Pathanmajra</option>
+<option value='Patti Jhungian'>Patti Jhungian</option>
+<option value='Patti Kartarpur'>Patti Kartarpur</option>
+<option value='Pipalkhedi'>Pipalkhedi</option>
+<option value='Palakhan'>Palakhan</option>
+<option value='Prempura'>Prempura</option>
+<option value='Prod'>Prod</option>
+<option value='Punia Khana'>Punia Khana</option>
+<option value='Rajgarh'>Rajgarh</option>
+<option value='Pur'>Pur</option>
+<option value='Ratakhera'>Ratakhera</option>
+<option value='Rasulpur Dundimajra'>Rasulpur Dundimajra</option>
+<option value='Roshanpur'>Roshanpur</option>
+<option value='Rohar Jangir'>Rohar Jangir</option>
+<option value='Salempur Walia'>Salempur Walia</option>
+<option value='Sadhu Nagar'>Sadhu Nagar</option>
+<option value='Sanipur'>Sanipur</option>
+<option value='Sampurngarh'>Sampurngarh</option>
+<option value='Sarustigarh'>Sarustigarh</option>
+<option value='Sarkda Farm'>Sarkda Farm</option>
+<option value='Sheikhupur'>Sheikhupur</option>
+<option value='Shadipur'>Shadipur</option>
+<option value='Shergarh'>Shergarh</option>
+<option value='Sheikhupur Jangir'>Sheikhupur Jangir</option>
+<option value='Sunder Singh Wala'>Sunder Singh Wala</option>
+<option value='Sirkapada'>Sirkapada</option>
+<option value='Tada'>Tada</option>
+<option value='Tajalpur'>Tajalpur</option>
+<option value='Tejjan'>Tejjan</option>
+<option value='Tasalpur'>Tasalpur</option>
+<option value='Tiwana'>Tiwana</option>
+<option value='Thakargarh'>Thakargarh</option>
+<option value='Udaipur Diwanwala'>Udaipur Diwanwala</option>
+<option value='Tauran'>Tauran</option>
+<option value='Upali'>Upali</option>
+<option value='Ultapur Jwalapur'>Ultapur Jwalapur</option>
+                    </select>
+                    `;
+                } else if (block1 == "Sanour")
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                               <option selected hidden disabled>Please Select</option>
+                               <option value='Rathian'>Rathian</option>
+<option value='Sankarpur'>Sankarpur</option>
+<option value='Panodian'>Panodian</option>
+<option value='Asarpur'>Asarpur</option>
+<option value='Kartarpur'>Kartarpur</option>
+<option value='Nurkherian'>Nurkherian</option>
+<option value='Punian Jatta'>Punian Jatta</option>
+<option value='Hussainpur Jola'>Hussainpur Jola</option>
+<option value='Nanansoon'>Nanansoon</option>
+<option value='Charason'>Charason</option>
+<option value='Alipur Jatta'>Alipur Jatta</option>
+<option value='Nogawa'>Nogawa</option>
+<option value='Abadi Kartarpur'>Abadi Kartarpur</option>
+<option value='Koli'>Koli</option>
+<option value='Khuda'>Khuda</option>
+<option value='Khasian'>Khasian</option>
+<option value='Mehergarh Batti'>Mehergarh Batti</option>
+<option value='Batta'>Batta</option>
+<option value='Fatehpur Rajputa'>Fatehpur Rajputa</option>
+<option value='Balamgarh'>Balamgarh</option>
+<option value='Balla'>Balla</option>
+<option value='Ganore'>Ganore</option>
+<option value='Mahadipur'>Mahadipur</option>
+<option value='Samaspur'>Samaspur</option>
+<option value='Jalalpur'>Jalalpur</option>
+<option value='Lalina'>Lalina</option>
+<option value='Bolar Kalan'>Bolar Kalan</option>
+<option value='Suniarheri'>Suniarheri</option>
+<option value='Alampur'>Alampur</option>
+<option value='Fatehpur Jatta'>Fatehpur Jatta</option>
+<option value='Chamarheri'>Chamarheri</option>
+<option value='Maradpur'>Maradpur</option>
+<option value='Gospur'>Gospur</option>
+<option value='Reeth Kheri'>Reeth Kheri</option>
+<option value='Rasulpur Joda'>Rasulpur Joda</option>
+<option value='Raipur Mandala'>Raipur Mandala</option>
+<option value='Bhathla'>Bhathla</option>
+<option value='Mithu Majra'>Mithu Majra</option>
+<option value='Kasba Roorkee'>Kasba Roorkee</option>
+<option value='Don Kalan'>Don Kalan</option>
+<option value='Hasanpur Prahota'>Hasanpur Prahota</option>
+<option value='Jafarpur'>Jafarpur</option>
+<option value='Don Khurd'>Don Khurd</option>
+<option value='Janheria'>Janheria</option>
+<option value='Jogipur'>Jogipur</option>
+<option value='Dhereri Jatta'>Dhereri Jatta</option>
+<option value='Mardaheri'>Mardaheri</option>
+<option value='Boser Kala'>Boser Kala</option>
+<option value='Paharipur'>Paharipur</option>
+<option value='Kakkepur'>Kakkepur</option>
+<option value='Dulbha'>Dulbha</option>
+<option value='Salempur Jattan'>Salempur Jattan</option>
+<option value='Akot'>Akot</option>
+<option value='Safeda'>Safeda</option>
+<option value='Bilaspur'>Bilaspur</option>
+<option value='Balbera'>Balbera</option>
+<option value='Bhateri'>Bhateri</option>
+<option value='Salempur Brahmina'>Salempur Brahmina</option>
+<option value='Karanpur'>Karanpur</option>
+<option value='Jafarnagar'>Jafarnagar</option>
+<option value='Budhanpur'>Budhanpur</option>
+<option value='Chaura'>Chaura</option>
+<option value='Mohabbatpur'>Mohabbatpur</option>
+<option value='Bauldi'>Bauldi</option>
+<option value='Kotla Gahiru'>Kotla Gahiru</option>
+<option value='Malakpur Jattan'>Malakpur Jattan</option>
+<option value='Dera Baazigar'>Dera Baazigar</option>
+<option value='Panjola'>Panjola</option>
+<option value='Mehmadpur Jatta'>Mehmadpur Jatta</option>
+<option value='Kulemajra'>Kulemajra</option>
+<option value='Ghalaudi'>Ghalaudi</option>
+<option value='Dera Jagatpura'>Dera Jagatpura</option>
+<option value='Suniar Hedi alias Gobindpura'>Suniar Hedi alias Gobindpura</option>
+<option value='Model Town Raipur Mandla'>Model Town Raipur Mandla</option>
+<option value='Farm Bahadurgarh'>Farm Bahadurgarh</option>
+<option value='Faloli'>Faloli</option>
+<option value='Pratapgarh'>Pratapgarh</option>
+<option value='Dandoa'>Dandoa</option>
+<option value='Dolatpur'>Dolatpur</option>
+<option value='Mehmadpur Arya'>Mehmadpur Arya</option>
+<option value='Saifdipur'>Saifdipur</option>
+<option value='Sekhpur Kamboa'>Sekhpur Kamboa</option>
+<option value='Beed Bahadurgarh'>Beed Bahadurgarh</option>
+<option value='Nagar'>Nagar</option>
+<option value='Peer Colony'>Peer Colony</option>
+<option value='Heera Colony'>Heera Colony</option>
+<option value='Hargobind Colony'>Hargobind Colony</option>
+<option value='Guru Nanak Nagar'>Guru Nanak Nagar</option>
+<option value='Mazri'>Mazri</option>
+<option value='Risi Colony'>Risi Colony</option>
+<option value='Urban Nagar'>Urban Nagar</option>
+<option value='Dealwall'>Dealwall</option>
+<option value='Beed Colony'>Beed Colony</option>
+<option value='Nava Mehmadpur Jatta'>Nava Mehmadpur Jatta</option>
+<option value='Karheri'>Karheri</option>
+<option value='Boharpur'>Boharpur</option>
+<option value='Vidya Nagar'>Vidya Nagar</option>
+<option value='Dalanpur'>Dalanpur</option>
+<option value='Sahibnagar Theri'>Sahibnagar Theri</option>
+
+                        </select>`;
+
+                else if (block1 == "Nabha")
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                               <option selected hidden disabled>Please Select</option>
+                               <option value='Abhepur'>Abhepur</option>
+<option value='Achal'>Achal</option>
+<option value='Ageta'>Ageta</option>
+<option value='Ageti'>Ageti</option>
+<option value='Agol'>Agol</option>
+<option value='Akalgarh'>Akalgarh</option>
+<option value='Allohra Kalan'>Allohra Kalan</option>
+<option value='Allohra Khurd'>Allohra Khurd</option>
+<option value='Alipur'>Alipur</option>
+<option value='Babarpur'>Babarpur</option>
+<option value='Bajidri'>Bajidri</option>
+<option value='Banera Kalan'>Banera Kalan</option>
+<option value='Banera Khurd'>Banera Khurd</option>
+<option value='Bureh'>Bureh</option>
+<option value='Behbalpur'>Behbalpur</option>
+<option value='Bhadi Panecha'>Bhadi Panecha</option>
+<option value='Bhilowal'>Bhilowal</option>
+<option value='Bhozo Majri'>Bhozo Majri</option>
+<option value='Binaheri'>Binaheri</option>
+<option value='Birdhno'>Birdhno</option>
+<option value='Bishangarh'>Bishangarh</option>
+<option value='Bauran Kalan'>Bauran Kalan</option>
+<option value='Bauran Khurd'>Bauran Khurd</option>
+<option value='Buga Khurd'>Buga Khurd</option>
+<option value='Bhode'>Bhode</option>
+<option value='Biradwal'>Biradwal</option>
+<option value='Bishanpura'>Bishanpura</option>
+<option value='Chehl'>Chehl</option>
+<option value='Chhaju Bhatt'>Chhaju Bhatt</option>
+<option value='Channanthuvalian'>Channanthuvalian</option>
+<option value='Chaswal'>Chaswal</option>
+<option value='Chatthe'>Chatthe</option>
+<option value='Chaudhary Majra'>Chaudhary Majra</option>
+<option value='Dakoda'>Dakoda</option>
+<option value='Dandrala Dhadsa'>Dandrala Dhadsa</option>
+<option value='Dargapur'>Dargapur</option>
+<option value='Dhanori Ga'>Dhanori Ga</option>
+<option value='Dharoki'>Dharoki</option>
+<option value='Dhingi'>Dhingi</option>
+<option value='Dittupur Jattan'>Dittupur Jattan</option>
+<option value='Diwangarh'>Diwangarh</option>
+<option value='Doda'>Doda</option>
+<option value='Dulladi'>Dulladi</option>
+<option value='Faizgarh'>Faizgarh</option>
+<option value='Faridpur'>Faridpur</option>
+<option value='Fatehpur'>Fatehpur</option>
+<option value='Galwatti'>Galwatti</option>
+<option value='Ghaniwal'>Ghaniwal</option>
+<option value='Ghanurki'>Ghanurki</option>
+<option value='Ghunder'>Ghunder</option>
+<option value='Gobindpura'>Gobindpura</option>
+<option value='Gadaia'>Gadaia</option>
+<option value='Gujarheri'>Gujarheri</option>
+<option value='Multiplier'>Multiplier</option>
+<option value='Gurditpura'>Gurditpura</option>
+<option value='Gobindgarh Chhanan'>Gobindgarh Chhanan</option>
+<option value='Hakimpura'>Hakimpura</option>
+<option value='Halla'>Halla</option>
+<option value='Halotali'>Halotali</option>
+<option value='Harigarh'>Harigarh</option>
+<option value='Hasanpura'>Hasanpura</option>
+<option value='Himantapura'>Himantapura</option>
+<option value='Zaso Majra'>Zaso Majra</option>
+<option value='Jatiwal'>Jatiwal</option>
+<option value='Jhambali Khaas'>Jhambali Khaas</option>
+<option value='Jhambali Sahni'>Jhambali Sahni</option>
+<option value='Jindalpur'>Jindalpur</option>
+<option value='Kakrala'>Kakrala</option>
+<option value='Kalhe Majra'>Kalhe Majra</option>
+<option value='Kalihana'>Kalihana</option>
+<option value='Kallar Majri'>Kallar Majri</option>
+<option value='Kalsana'>Kalsana</option>
+<option value='Kameli'>Kameli</option>
+<option value='Kansuha Khurd'>Kansuha Khurd</option>
+<option value='Kartar Colony'>Kartar Colony</option>
+<option value='Kaul'>Kaul</option>
+<option value='Khanora'>Khanora</option>
+<option value='Khatra Colony'>Khatra Colony</option>
+<option value='Kheri Jatta'>Kheri Jatta</option>
+<option value='Khijarpur'>Khijarpur</option>
+<option value='Kot Kalan'>Kot Kalan</option>
+<option value='Kot Khurd'>Kot Khurd</option>
+<option value='Kulara'>Kulara</option>
+<option value='Khokh'>Khokh</option>
+<option value='Kotli'>Kotli</option>
+<option value='Lopeh'>Lopeh</option>
+<option value='Ladhaheri'>Ladhaheri</option>
+<option value='Lohar Majra'>Lohar Majra</option>
+<option value='Malko'>Malko</option>
+<option value='Mallewal'>Mallewal</option>
+<option value='Mallewal Patti'>Mallewal Patti</option>
+<option value='Magewal'>Magewal</option>
+<option value='Mansurpur'>Mansurpur</option>
+<option value='Matorda'>Matorda</option>
+<option value='Megh Colony'>Megh Colony</option>
+<option value='Mehs'>Mehs</option>
+<option value='Mohalgawara'>Mohalgawara</option>
+<option value='Mungo'>Mungo</option>
+<option value='Nanowal'>Nanowal</option>
+<option value='Naraingarh'>Naraingarh</option>
+<option value='Narmana'>Narmana</option>
+<option value='Nohra'>Nohra</option>
+<option value='Paharpur'>Paharpur</option>
+<option value='Palian Kalan'>Palian Kalan</option>
+<option value='Palian Khurd'>Palian Khurd</option>
+<option value='Remal Majri'>Remal Majri</option>
+<option value='Rasle'>Rasle</option>
+<option value='Rajpura'>Rajpura</option>
+<option value='Ramgarh Bora'>Ramgarh Bora</option>
+<option value='Ramgarh Bhadson'>Ramgarh Bhadson</option>
+<option value='Rampursaiwal'>Rampursaiwal</option>
+<option value='Ranjitgarh'>Ranjitgarh</option>
+<option value='Ranno'>Ranno</option>
+<option value='Rajgarh'>Rajgarh</option>
+<option value='Sandhnoli'>Sandhnoli</option>
+<option value='Sadhoheri'>Sadhoheri</option>
+<option value='Saholi'>Saholi</option>
+<option value='Sakoha'>Sakoha</option>
+<option value='Sakrali (Nanoki)'>Sakrali (Nanoki)</option>
+<option value='Saluwal'>Saluwal</option>
+<option value='Samaspur'>Samaspur</option>
+<option value='Sangatpura'>Sangatpura</option>
+<option value='Saraindas Kalon'>Saraindas Kalon</option>
+<option value='Sauja'>Sauja</option>
+<option value='Shahpur'>Shahpur</option>
+<option value='Shivgarh'>Shivgarh</option>
+<option value='Sri Guru Tegbahadur Nagar'>Sri Guru Tegbahadur Nagar</option>
+<option value='Shri Nagar'>Shri Nagar</option>
+<option value='Sudhewal'>Sudhewal</option>
+<option value='Sukhewal'>Sukhewal</option>
+<option value='Surajpur'>Surajpur</option>
+<option value='Tarkhedi Kalan'>Tarkhedi Kalan</option>
+<option value='Tarkhedi Khurd'>Tarkhedi Khurd</option>
+<option value='Thuha Patti'>Thuha Patti</option>
+<option value='Thuhi'>Thuhi</option>
+<option value='Todarwal'>Todarwal</option>
+<option value='Tohra'>Tohra</option>
+<option value='Tunga'>Tunga</option>
+<option value='Udha'>Udha</option>
+<option value='Upla'>Upla</option>
+<option value='Wajidpur'>Wajidpur</option>
+                               </select>`
+
+                else if (block1 == "Rajpura")
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                               <option selected hidden disabled>Please Select</option>
+                               <option value='Ugana'>Ugana</option>
+<option value='Ugani'>Ugani</option>
+<option value='Uksi Sainia'>Uksi Sainia</option>
+<option value='Uksi Jatta'>Uksi Jatta</option>
+<option value='Uchi Khera'>Uchi Khera</option>
+<option value='Upalheri'>Upalheri</option>
+<option value='Upalheri Khurd'>Upalheri Khurd</option>
+<option value='Urdan'>Urdan</option>
+<option value='Urna'>Urna</option>
+<option value='Azizpur'>Azizpur</option>
+<option value='Akbarpur'>Akbarpur</option>
+<option value='Aluna'>Aluna</option>
+<option value='Sadharor'>Sadharor</option>
+<option value='Samdu'>Samdu</option>
+<option value='Sooral Kalan'>Sooral Kalan</option>
+<option value='Sural Khurd '>Sural Khurd </option>
+<option value='Hadietpura'>Hadietpura</option>
+<option value='Hareao'>Hareao</option>
+<option value='Hulka'>Hulka</option>
+<option value='Kalo Majra'>Kalo Majra</option>
+<option value='Kaloli'>Kaloli</option>
+<option value='Karala'>Karala</option>
+<option value='Kotla'>Kotla</option>
+<option value='Kurali'>Kurali</option>
+<option value='Khalor'>Khalor</option>
+<option value='Khaspur'>Khaspur</option>
+<option value='Khanpur Bangar'>Khanpur Bangar</option>
+<option value='Khanpur Khadar'>Khanpur Khadar</option>
+<option value='Kharajpur'>Kharajpur</option>
+<option value='Kharola'>Kharola</option>
+<option value='Khera Guju'>Khera Guju</option>
+<option value='Khijargarh'>Khijargarh</option>
+<option value='Gaddo Majra'>Gaddo Majra</option>
+<option value='Chak Khurd'>Chak Khurd</option>
+<option value='Gurditpura'>Gurditpura</option>
+<option value='Chak Kalan'>Chak Kalan</option>
+<option value='Chandua Khurd'>Chandua Khurd</option>
+<option value='Chandu Majra'>Chandu Majra</option>
+<option value='Changera'>Changera</option>
+<option value='Chhadbar'>Chhadbar</option>
+<option value='Jalalpur'>Jalalpur</option>
+<option value='Jandoli'>Jandoli</option>
+<option value='Jangpura'>Jangpura</option>
+<option value='Jasla'>Jasla</option>
+<option value='Jansui'>Jansui</option>
+<option value='Jasli'>Jasli</option>
+<option value='Jhajho'>Jhajho</option>
+<option value='Tasoli'>Tasoli</option>
+<option value='Dabali Kalan'>Dabali Kalan</option>
+<option value='Dabali Khurd'>Dabali Khurd</option>
+<option value='Damanheri'>Damanheri</option>
+<option value='Devi Nagar (A)'>Devi Nagar (A)</option>
+<option value='Devi Nagar(R)'>Devi Nagar(R)</option>
+<option value='Dharamgarh(R)'>Dharamgarh(R)</option>
+<option value='Dharamgarh (B)'>Dharamgarh (B)</option>
+<option value='Dhuma'>Dhuma</option>
+<option value='Naina'>Naina</option>
+<option value='Nalas Kalan'>Nalas Kalan</option>
+<option value='Nalas Khurd'>Nalas Khurd</option>
+<option value='Nandyali'>Nandyali</option>
+<option value='Naraingarh Jhungia'>Naraingarh Jhungia</option>
+<option value='Neelpur'>Neelpur</option>
+<option value='Pilkhani'>Pilkhani</option>
+<option value='Faridpur'>Faridpur</option>
+<option value='Faridpur Gujjan>'>Faridpur Gujjan></option>
+<option value='Fatehpurgarhi'>Fatehpurgarhi</option>
+<option value='Budhanpur'>Budhanpur</option>
+<option value='Boota Singh Wala'>Boota Singh Wala</option>
+<option value='Bakshiwala'>Bakshiwala</option>
+<option value='Bal Majra'>Bal Majra</option>
+<option value='Balsua'>Balsua</option>
+<option value='Basantpura'>Basantpura</option>
+<option value='Bhapal'>Bhapal</option>
+<option value='Bhateri'>Bhateri</option>
+<option value='Bhateeras'>Bhateeras</option>
+<option value='Mirzapur'>Mirzapur</option>
+<option value='Mamoli'>Mamoli</option>
+<option value='Manakpur'>Manakpur</option>
+<option value='Manoli Surat'>Manoli Surat</option>
+<option value='Mathiara'>Mathiara</option>
+<option value='Ram Nagar alias Soti'>Ram Nagar alias Soti</option>
+<option value='Rampur Kalan'>Rampur Kalan</option>
+<option value='Ram Nagar '>Ram Nagar </option>
+<option value='Rampur Khurd'>Rampur Khurd</option>
+<option value='Rangia'>Rangia</option>
+<option value='Lehla'>Lehla</option>
+<option value='Wazirabad'>Wazirabad</option>
+<option value='Satnam Nagar'>Satnam Nagar</option>
+<option value='Kuldeep Nagar'>Kuldeep Nagar</option>
+<option value='Peer Nagar'>Peer Nagar</option>
+<option value='Sadharor Majri'>Sadharor Majri</option>
+<option value='Baazigar Basti Sarai Bajara'>Baazigar Basti Sarai Bajara</option>
+<option value='Basti Baksiala'>Basti Baksiala</option>
+<option value='Guru Angad Dev Colony'>Guru Angad Dev Colony</option>
+<option value='Kaloli Jattan'>Kaloli Jattan</option>
+<option value='Saamdu Camp'>Saamdu Camp</option>
+                            </select>`;
+
+                else if (block1 == "Ghanour")
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                               <option selected hidden disabled>Please Select</option>
+                               <option value='Ajravar'>Ajravar</option>
+<option value='Alamdipur'>Alamdipur</option>
+<option value='Baghora'>Baghora</option>
+<option value='Ballomajra'>Ballomajra</option>
+<option value='Bhatt Majra'>Bhatt Majra</option>
+<option value='Bahawalpur'>Bahawalpur</option>
+<option value='Chamaru'>Chamaru</option>
+<option value='Chappad'>Chappad</option>
+<option value='Darwa'>Darwa</option>
+<option value='Faridpur Jathan'>Faridpur Jathan</option>
+<option value='Gadarpur'>Gadarpur</option>
+<option value='Ghanori Khera'>Ghanori Khera</option>
+<option value='Ghumana'>Ghumana</option>
+<option value='Ghungra'>Ghungra</option>
+<option value='Hari Majra'>Hari Majra</option>
+<option value='Hari Garh'>Hari Garh</option>
+<option value='Harpalan'>Harpalan</option>
+<option value='Hasanpur'>Hasanpur</option>
+<option value='Jabbo Majra'>Jabbo Majra</option>
+<option value='Jamitgarh'>Jamitgarh</option>
+<option value='Jand Mangoli'>Jand Mangoli</option>
+<option value='Jharvan'>Jharvan</option>
+<option value='Jogi Majra'>Jogi Majra</option>
+<option value='Kabulpur'>Kabulpur</option>
+<option value='Kami Kalan'>Kami Kalan</option>
+<option value='Kami Khurd'>Kami Khurd</option>
+<option value='Kapuri'>Kapuri</option>
+<option value='Katalahar'>Katalahar</option>
+<option value='Khalaspur'>Khalaspur</option>
+<option value='Khedi Mandala'>Khedi Mandala</option>
+<option value='Khedi Pandatan'>Khedi Pandatan</option>
+<option value='Kutha Kheri'>Kutha Kheri</option>
+<option value='Lachhdu Kalan'>Lachhdu Kalan</option>
+<option value='Lanja'>Lanja</option>
+<option value='Lochma'>Lochma</option>
+<option value='Loh Simbli'>Loh Simbli</option>
+<option value='Loha Kheri'>Loha Kheri</option>
+<option value='Magar'>Magar</option>
+<option value='Mahurian'>Mahurian</option>
+<option value='Marji Fakiran'>Marji Fakiran</option>
+<option value='Mandoli'>Mandoli</option>
+<option value='Mardapura'>Mardapura</option>
+<option value='Kamalpur'>Kamalpur</option>
+<option value='Mehdoodan'>Mehdoodan</option>
+<option value='Mirzapur'>Mirzapur</option>
+<option value='Nanheri'>Nanheri</option>
+<option value='Naraingarh'>Naraingarh</option>
+<option value='Nararh'>Nararh</option>
+<option value='Namboo Majra'>Namboo Majra</option>
+<option value='Raipur'>Raipur</option>
+<option value='Rampur'>Rampur</option>
+<option value='Rurka'>Rurka</option>
+<option value='Sahal'>Sahal</option>
+<option value='Salempur Jattan'>Salempur Jattan</option>
+<option value='Salempur Sekhan'>Salempur Sekhan</option>
+<option value='Samaspur'>Samaspur</option>
+<option value='Sandharsi'>Sandharsi</option>
+<option value='Sanjarpur'>Sanjarpur</option>
+<option value='Snolia'>Snolia</option>
+<option value='Sarala Kalan'>Sarala Kalan</option>
+<option value='Sarala Khurd'>Sarala Khurd</option>
+<option value='Seal'>Seal</option>
+<option value='Sekhpur Rajputtan'>Sekhpur Rajputtan</option>
+<option value='Sahpur Raian'>Sahpur Raian</option>
+<option value='Sekhupur'>Sekhupur</option>
+<option value='Sialu'>Sialu</option>
+<option value='Sogalpur'>Sogalpur</option>
+<option value='Sonemajra'>Sonemajra</option>
+<option value='Sauntan'>Sauntan</option>
+<option value='Uksi'>Uksi</option>
+<option value='Ulana'>Ulana</option>
+<option value='Utsar'>Utsar</option>
+<option value='Jarikpur'>Jarikpur</option>
+<option value='Haripur Jhungian'>Haripur Jhungian</option>
+                    </select>`;
+
+                else if (block1 == "Shambhu Kalan")
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                               <option selected hidden disabled>Please Select</option>
+                               <option value='Akad'>Akad</option>
+<option value='Akadi'>Akadi</option>
+<option value='Abdulpur'>Abdulpur</option>
+<option value='Badholi Gujjaran'>Badholi Gujjaran</option>
+<option value='Basman'>Basman</option>
+<option value='Bathli'>Bathli</option>
+<option value='Bhadak'>Bhadak</option>
+<option value='Bhedwal'>Bhedwal</option>
+<option value='Bhogla'>Bhogla</option>
+<option value='Chamaru'>Chamaru</option>
+<option value='Dhakansu Kalan'>Dhakansu Kalan</option>
+<option value='Dhindsa'>Dhindsa</option>
+<option value='Gardinagar'>Gardinagar</option>
+<option value='Ghazipur'>Ghazipur</option>
+<option value='Ghadama Kalan'>Ghadama Kalan</option>
+<option value='Gopalpur'>Gopalpur</option>
+<option value='Jo Nagar'>Jo Nagar</option>
+<option value='Jokhara'>Jokhara</option>
+<option value='Jansuan'>Jansuan</option>
+<option value='Kharoli'>Kharoli</option>
+<option value='Khairpur Jatta'>Khairpur Jatta</option>
+<option value='Khanpur Baring'>Khanpur Baring</option>
+<option value='Khanpur Khurd'>Khanpur Khurd</option>
+<option value='Kheri Gurna'>Kheri Gurna</option>
+<option value='Luhand'>Luhand</option>
+<option value='Mahima'>Mahima</option>
+<option value='Mandwal'>Mandwal</option>
+<option value='Mangpur'>Mangpur</option>
+<option value='Mauhi Kalan'>Mauhi Kalan</option>
+<option value='Niyamatpur'>Niyamatpur</option>
+<option value='Pabra'>Pabra</option>
+<option value='Pabri'>Pabri</option>
+<option value='Pahar Khurd'>Pahar Khurd</option>
+<option value='Pahar Kalan'>Pahar Kalan</option>
+<option value='Saidkhedi'>Saidkhedi</option>
+<option value='Sehra'>Sehra</option>
+<option value='Sehri'>Sehri</option>
+<option value='Surjgarh'>Surjgarh</option>
+<option value='Tahilpura'>Tahilpura</option>
+<option value='Takhtu Majra'>Takhtu Majra</option>
+<option value='Thuha'>Thuha</option>
+<option value='Alal Majra'>Alal Majra</option>
+<option value='Bathonian Kalan'>Bathonian Kalan</option>
+<option value='Bibipur'>Bibipur</option>
+<option value='Baprour'>Baprour</option>
+<option value='Chatar Nagar'>Chatar Nagar</option>
+<option value='Chalheri'>Chalheri</option>
+<option value='Dharamgarh'>Dharamgarh</option>
+<option value='Daharia'>Daharia</option>
+<option value='Ghaggar Sarai'>Ghaggar Sarai</option>
+<option value='Jakhepal'>Jakhepal</option>
+<option value='Kherpur Sheikha'>Kherpur Sheikha</option>
+<option value='Khanpur Gandia'>Khanpur Gandia</option>
+<option value='Mandyana'>Mandyana</option>
+<option value='Noshera'>Noshera</option>
+<option value='Nanhera'>Nanhera</option>
+<option value='Naugawa'>Naugawa</option>
+<option value='Shambhu Khurd'>Shambhu Khurd</option>
+<option value='Suhro'>Suhro</option>
+<option value='Shanmbhu Kalan'>Shanmbhu Kalan</option>
+<option value='Tepla'>Tepla</option>
+<option value='Alampur'>Alampur</option>
+<option value='Amirpur'>Amirpur</option>
+<option value='Badal Colony'>Badal Colony</option>
+<option value='Bassman Colony'>Bassman Colony</option>
+<option value='Dhakansu Khurd'>Dhakansu Khurd</option>
+<option value='Dhakansu Majra'>Dhakansu Majra</option>
+<option value='Ghadama Khurd'>Ghadama Khurd</option>
+<option value='Guru Teg Bahadur Colony'>Guru Teg Bahadur Colony</option>
+<option value='Kheri Gandia'>Kheri Gandia</option>
+<option value='Mehtabgarh'>Mehtabgarh</option>
+<option value='Mauhi Khurd'>Mauhi Khurd</option>
+<option value='Nandgarh'>Nandgarh</option>
+<option value='Nepra'>Nepra</option>
+<option value='Safdalpur'>Safdalpur</option>
+<option value='Bhedwal Jhugian'>Bhedwal Jhugian</option>
+<option value='Ali Majra'>Ali Majra</option>
+<option value='Bathonian Khurd'>Bathonian Khurd</option>
+<option value='Bhuri Majra'>Bhuri Majra</option>
+<option value='Gandian'>Gandian</option>
+<option value='Hashampur'>Hashampur</option>
+<option value='Mughal Sarai'>Mughal Sarai</option>
+<option value='Mahmoodpur'>Mahmoodpur</option>
+<option value='Madanpur'>Madanpur</option>
+<option value='Mahmudpur GT'>Mahmudpur GT</option>
+<option value='Nanhera Khurd'>Nanhera Khurd</option>
+<option value='Rajgarh'>Rajgarh</option>
+<option value='Ramnagar Sainia'>Ramnagar Sainia</option>
+<option value='Shambhu Rajputa'>Shambhu Rajputa</option>
+<option value='Khajur Pir Colony'>Khajur Pir Colony</option>
+                    </select>`;
+
+                else if (block1 == "Samana")
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                               <option selected hidden disabled>Please Select</option>
+                               <option value='Gajewas'>Gajewas</option>
+<option value='Mardanheri'>Mardanheri</option>
+<option value='Kaderabad'>Kaderabad</option>
+<option value='Kulburchhan'>Kulburchhan</option>
+<option value='Jaito Patti'>Jaito Patti</option>
+<option value='Sparheri'>Sparheri</option>
+<option value='Sparheri Chhanan'>Sparheri Chhanan</option>
+<option value='Asmanpur'>Asmanpur</option>
+<option value='Gurdialpura'>Gurdialpura</option>
+<option value='Nanhera'>Nanhera</option>
+<option value='Rajgarh'>Rajgarh</option>
+<option value='Harchandpura (T)'>Harchandpura (T)</option>
+<option value='Ratnaheri'>Ratnaheri</option>
+<option value='Sadh Majra'>Sadh Majra</option>
+<option value='Harchandpura (H)'>Harchandpura (H)</option>
+<option value='Harchandpura (N)'>Harchandpura (N)</option>
+<option value='Kheri Fatan'>Kheri Fatan</option>
+<option value='Dodra'>Dodra</option>
+<option value='Shahpur'>Shahpur</option>
+<option value='Kahangarh Bhootna'>Kahangarh Bhootna</option>
+<option value='Kotli'>Kotli</option>
+<option value='Bishanpura'>Bishanpura</option>
+<option value='Kalaran'>Kalaran</option>
+<option value='Asarpur'>Asarpur</option>
+<option value='Badanpur'>Badanpur</option>
+<option value='Sangatpura'>Sangatpura</option>
+<option value='Todarpur'>Todarpur</option>
+<option value='Gajevas (C)'>Gajevas (C)</option>
+<option value='Chutehra'>Chutehra</option>
+<option value='Kotla Nasru'>Kotla Nasru</option>
+<option value='Kamalpur'>Kamalpur</option>
+<option value='Dullad'>Dullad</option>
+<option value='Bamanna'>Bamanna</option>
+<option value='Chupki (A)'>Chupki (A)</option>
+<option value='Ghiaura'>Ghiaura</option>
+<option value='Dhanauri'>Dhanauri</option>
+<option value='Guru Teg Bahadur Nagar'>Guru Teg Bahadur Nagar</option>
+<option value='Kheri Bhima'>Kheri Bhima</option>
+<option value='Achraal Kalan'>Achraal Kalan</option>
+<option value='Tarkhaan Majra'>Tarkhaan Majra</option>
+<option value='Khudadpura'>Khudadpura</option>
+<option value='Fateh Majri'>Fateh Majri</option>
+<option value='Fatehgarh Chhanan'>Fatehgarh Chhanan</option>
+<option value='Namanda'>Namanda</option>
+<option value='Lalgarh'>Lalgarh</option>
+<option value='Kakada'>Kakada</option>
+<option value='Dera Ghazisalar'>Dera Ghazisalar</option>
+<option value='Muradpura'>Muradpura</option>
+<option value='Danipur'>Danipur</option>
+<option value='Khatri wala'>Khatri wala</option>
+<option value='Talwandi Malik'>Talwandi Malik</option>
+<option value='Guru Nanak Nagar'>Guru Nanak Nagar</option>
+<option value='Saidipur'>Saidipur</option>
+<option value='Khanpur Gadia'>Khanpur Gadia</option>
+<option value='Fatehpur'>Fatehpur</option>
+<option value='Basti Bamana'>Basti Bamana</option>
+<option value='Alampur'>Alampur</option>
+<option value='Prem Singh Wala'>Prem Singh Wala</option>
+<option value='Ballamgarh'>Ballamgarh</option>
+<option value='Sadhugarh'>Sadhugarh</option>
+<option value='Chak Amritsaria'>Chak Amritsaria</option>
+<option value='Retgarh'>Retgarh</option>
+<option value='Chupki (N)'>Chupki (N)</option>
+<option value='Mavi Kalan'>Mavi Kalan</option>
+<option value='Kheri Nagaia'>Kheri Nagaia</option>
+<option value='Lutki Majra'>Lutki Majra</option>
+<option value='Arai Majra'>Arai Majra</option>
+<option value='Nagri'>Nagri</option>
+<option value='Buzerk'>Buzerk</option>
+<option value='Ghangroli'>Ghangroli</option>
+<option value='Gobind Nagar Kulanra'>Gobind Nagar Kulanra</option>
+<option value='Marodi'>Marodi</option>
+<option value='Chauhath'>Chauhath</option>
+<option value='Talwandi Kothe'>Talwandi Kothe</option>
+<option value='Boota Singh Wala'>Boota Singh Wala</option>
+<option value='Badshahpur Gh'>Badshahpur Gh</option>
+<option value='Dwarkapur'>Dwarkapur</option>
+<option value='Ugoke'>Ugoke</option>
+<option value='Auza Patti'>Auza Patti</option>
+<option value='Mial Kalan'>Mial Kalan</option>
+<option value='Mial Khurd'>Mial Khurd</option>
+<option value='Belu Majra'>Belu Majra</option>
+<option value='Rampur Padtan'>Rampur Padtan</option>
+<option value='Dharamgarh'>Dharamgarh</option>
+<option value='Sahajpur Kalan'>Sahajpur Kalan</option>
+<option value='Sahajpur Khurd'>Sahajpur Khurd</option>
+<option value='Bhedpuri'>Bhedpuri</option>
+<option value='Basti Kot Bhai Lakhia'>Basti Kot Bhai Lakhia</option>
+<option value='Bhagat Singh Nagar'>Bhagat Singh Nagar</option>
+<option value='Bizalpur'>Bizalpur</option>
+<option value='Nasupur'>Nasupur</option>
+<option value='Dhenthal'>Dhenthal</option>
+<option value='Rajala'>Rajala</option>
+<option value='Dhanetha'>Dhanetha</option>
+<option value='Kamaspur'>Kamaspur</option>
+<option value='Jamalpur'>Jamalpur</option>
+<option value='Badshahpur Kaleki'>Badshahpur Kaleki</option>
+<option value='Ghazipur'>Ghazipur</option>
+<option value='Kakrala'>Kakrala</option>
+<option value='Kutbanpur'>Kutbanpur</option>
+<option value='Ajit Nagar'>Ajit Nagar</option>
+<option value='Basti Gobind Nagar'>Basti Gobind Nagar</option>
+                    </select>`;
+
+                else if (block1 == "Patran")
+                    vill.innerHTML = `<label for="village">Village: </label>
+                    <select id="village" name="village" required>
+                               <option selected hidden disabled>Please Select</option>
+                               <option value='Arnettu'>Arnettu</option>
+<option value='Arnetu Khurd'>Arnetu Khurd</option>
+<option value='Arno'>Arno</option>
+<option value='Arno Khurd'>Arno Khurd</option>
+<option value='Atalan'>Atalan</option>
+<option value='Bakraha'>Bakraha</option>
+<option value='Banwala'>Banwala</option>
+<option value='Beharjachch'>Beharjachch</option>
+<option value='Bhagat Singh Nagar'>Bhagat Singh Nagar</option>
+<option value='Bhundtheh'>Bhundtheh</option>
+<option value='Bhutgarh'>Bhutgarh</option>
+<option value='Bras'>Bras</option>
+<option value='Burarh'>Burarh</option>
+<option value='Burar Khurd'>Burar Khurd</option>
+<option value='Chhabilpur'>Chhabilpur</option>
+<option value='Chunagra'>Chunagra</option>
+<option value='Daftariwala'>Daftariwala</option>
+<option value='Droli'>Droli</option>
+<option value='Dashmesh Nagar Maulviwala'>Dashmesh Nagar Maulviwala</option>
+<option value='Dedhana'>Dedhana</option>
+<option value='Deogarh'>Deogarh</option>
+<option value='Dera Boharwala'>Dera Boharwala</option>
+<option value='Dera Chinyawala'>Dera Chinyawala</option>
+<option value='Dera Dashmesh Nagar Khanawal'>Dera Dashmesh Nagar Khanawal</option>
+<option value='Dera Dhanna Singh Wala'>Dera Dhanna Singh Wala</option>
+<option value='Dera Gobindpura Shutrana'>Dera Gobindpura Shutrana</option>
+<option value='Dera Jheel'>Dera Jheel</option>
+<option value='Dera Rajputs'>Dera Rajputs</option>
+<option value='Dera Sangatpura Burar'>Dera Sangatpura Burar</option>
+<option value='Dera Sant Nagar Maulviwala'>Dera Sant Nagar Maulviwala</option>
+<option value='Dhabi Gujjara'>Dhabi Gujjara</option>
+<option value='Dhuhar'>Dhuhar</option>
+<option value='Dayal Nagar Hamjheri'>Dayal Nagar Hamjheri</option>
+<option value='Dugal Khurd'>Dugal Khurd</option>
+<option value='Dugal Kalan'>Dugal Kalan</option>
+<option value='Dutal'>Dutal</option>
+<option value='Gloly'>Gloly</option>
+<option value='Ganga Nagar'>Ganga Nagar</option>
+<option value='Gobindpura Sagara'>Gobindpura Sagara</option>
+<option value='Gobindpura Paind'>Gobindpura Paind</option>
+<option value='Gopalpur'>Gopalpur</option>
+<option value='Gulahar'>Gulahar</option>
+<option value='Gulahar Khurd'>Gulahar Khurd</option>
+<option value='Gulzarpura Tharua'>Gulzarpura Tharua</option>
+<option value='Gurditpura'>Gurditpura</option>
+<option value='Guru Arjan Nagar'>Guru Arjan Nagar</option>
+<option value='Guru Nanakpura'>Guru Nanakpura</option>
+<option value='Guru Teg Bahadur Nagar'>Guru Teg Bahadur Nagar</option>
+<option value='Hamjheri'>Hamjheri</option>
+<option value='Green Jatta'>Green Jatta</option>
+<option value='Hariyau Kalan'>Hariyau Kalan</option>
+<option value='Hariau Khurd'>Hariau Khurd</option>
+<option value='Heera Nagar Shutrana'>Heera Nagar Shutrana</option>
+<option value='Heera Nagar Droli'>Heera Nagar Droli</option>
+<option value='Heera Patti Brass'>Heera Patti Brass</option>
+<option value='Jahangir'>Jahangir</option>
+<option value='Jaikhar'>Jaikhar</option>
+<option value='Jalalpur'>Jalalpur</option>
+<option value='Jwalapur'>Jwalapur</option>
+<option value='Jiaunpura'>Jiaunpura</option>
+<option value='Jogewala'>Jogewala</option>
+<option value='Joginder Nagar Bakraha'>Joginder Nagar Bakraha</option>
+<option value='Kahngarh Gharachon'>Kahngarh Gharachon</option>
+<option value='Kallar Bhaini'>Kallar Bhaini</option>
+<option value='Kalvanu'>Kalvanu</option>
+<option value='Kamalpur'>Kamalpur</option>
+<option value='Kangthala'>Kangthala</option>
+<option value='Karim Nagar alias Chichadwala'>Karim Nagar alias Chichadwala</option>
+<option value='Kartarpur'>Kartarpur</option>
+<option value='Kath'>Kath</option>
+<option value='Khanawal'>Khanawal</option>
+<option value='Khang'>Khang</option>
+<option value='Khaspur'>Khaspur</option>
+<option value='Kua Derry'>Kua Derry</option>
+<option value='Lalwa'>Lalwa</option>
+<option value='Matoli'>Matoli</option>
+<option value='Molviwalla'>Molviwalla</option>
+<option value='Naiwala'>Naiwala</option>
+<option value='Navan Pind Kalvanu'>Navan Pind Kalvanu</option>
+<option value='Navan Pind Lalwa'>Navan Pind Lalwa</option>
+<option value='Niall'>Niall</option>
+<option value='Noorpura'>Noorpura</option>
+<option value='Paind Khurd'>Paind Khurd</option>
+<option value='Plassor'>Plassor</option>
+<option value='Patran Rural'>Patran Rural</option>
+<option value='Rampur Dugal'>Rampur Dugal</option>
+<option value='Rasoli'>Rasoli</option>
+<option value='Sadharanpur'>Sadharanpur</option>
+<option value='Sadharanpur Khurd'>Sadharanpur Khurd</option>
+<option value='Shadipur Momia'>Shadipur Momia</option>
+<option value='Sagara'>Sagara</option>
+<option value='Sahibzada Ajit Singh Nagar'>Sahibzada Ajit Singh Nagar</option>
+<option value='Selwala'>Selwala</option>
+<option value='Selwala Khurd'>Selwala Khurd</option>
+<option value='Santpura Baras'>Santpura Baras</option>
+<option value='Seona'>Seona</option>
+<option value='Shergarh'>Shergarh</option>
+<option value='Shergarh Khurd'>Shergarh Khurd</option>
+<option value='Shutrana'>Shutrana</option>
+<option value='Subhash Nagar'>Subhash Nagar</option>
+<option value='Sunder Nagar'>Sunder Nagar</option>
+<option value='Teipur'>Teipur</option>
+<option value='Tambuwala'>Tambuwala</option>
+<option value='Tugopatti'>Tugopatti</option>
+<option value='Udham Singh Nagar'>Udham Singh Nagar</option>
+                    </select>`;
+            })
+        }
+
+    </script>
+</body>
+
+</html>
