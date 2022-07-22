@@ -55,18 +55,22 @@
           </div>
     <form action="submitHospital.php" method="post">
         <label for="name" style="margin-top: 30px;">Name of hospital: </label>
-        <input type="text" id="name" name="name"><br>
+        <input type="text" id="name" name="name" required><br>
             <label for="type">Type:</label>
-            <input type="radio" name="type" value="GOV"><label>Government</label>
-            <input type="radio" name="type" value="PVT"><label>Private</label><br>
+            <select id="type">
+                <option hidden disabled selected>Please select</option>
+                <option value="GOV">Government</option>
+                <option value="PVT">Private</option>
+            </select>
+            <br>
             <label for="n_name">Name of Nodal Officer </label>
-            <input type="text" id="n_name" name="n_name"><br>
+            <input type="text" id="n_name" name="n_name" required><br>
             <label for="email">Email id: </label>
-            <input type="email" id="email" name="email"><br>
+            <input type="email" id="email" name="email" required><br>
             <label for="mobile">Mobile Number: </label>
-            <input type="number" name="mobile"><br>
+            <input type="number" name="mobile" required><br>
             <label for="password">Generate Password: </label>
-            <input type="password" id="password" name="password"><br>
+            <input type="password" id="password" name="password" required><br>
             <label for="conf-password">Confirm Password: </label>
             <input type="password" id="conf-password" name="conf-password">
             <center>
